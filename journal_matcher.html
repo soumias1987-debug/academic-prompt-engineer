@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مهندس البرومبت: مساعد اختيار المجلة</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+header{text-align:center;margin-bottom:2rem}
+h1{font-size:26px;color:#059669;margin-bottom:0.5rem}
+p.subtitle{color:#64748b;font-size:15px}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.04);padding:2rem;margin-bottom:1.5rem;border:1px solid #e2e8f0}
+.section-title{font-size:16px;font-weight:700;color:#059669;margin-bottom:1rem;border-bottom:2px solid #D1FAE5;padding-bottom:0.5rem}
+.form-group{margin-bottom:1.2rem}
+label{display:block;font-size:14px;font-weight:600;color:#334155;margin-bottom:6px}
+input[type=text], select, textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:all 0.2s}
+input[type=text]:focus, select:focus, textarea:focus{border-color:#059669;box-shadow:0 0 0 3px rgba(5,150,105,0.1)}
+textarea{resize:vertical;min-height:120px;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+.btn{width:100%;padding:14px;background:#059669;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s;margin-top:1rem}
+.btn:hover{background:#047857}
+.output-box{margin-top:2rem;display:none}
+.output-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.output-title{font-weight:bold;color:#059669}
+.copy-btn{background:#D1FAE5;color:#059669;border:1px solid #059669;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold}
+.copy-btn:hover{background:#A7F3D0}
+pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:600px;overflow-y:auto}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>مساعد اختيار المجلة العلمية</h1>
+    <p class="subtitle">العثور على المجلات المصنفة (Q1/Q2) الأنسب لمقالك</p>
+  </header>
+
+  <div class="card">
+    <div class="section-title">1. تفاصيل المقال</div>
+    
+    <div class="form-group">
+      <label>عنوان المقال (Title)</label>
+      <input type="text" id="title" placeholder="مثال: The Impact of Administrative Decentralization on Citizen Trust in MENA Countries">
+    </div>
+
+    <div class="form-group">
+      <label>الملخص (Abstract) أو الكلمات المفتاحية</label>
+      <textarea id="abstract" placeholder="الصق هنا الملخص أو الكلمات المفتاحية الرئيسية لمقالك..."></textarea>
+    </div>
+
+    <div class="grid">
+      <div class="form-group">
+        <label>الميدان المعرفي</label>
+        <select id="field">
+          <option value="Political Science">العلوم السياسية</option>
+          <option value="Public Administration">الإدارة العامة</option>
+          <option value="International Relations">العلاقات الدولية</option>
+          <option value="Public Policy">السياسات العامة</option>
+          <option value="Sociology">علم الاجتماع</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>التصنيف المستهدف</label>
+        <select id="ranking">
+          <option value="Q1 only (Top tier, high impact)">Q1 فقط (الأعلى تأثيراً)</option>
+          <option value="Q1 and Q2">Q1 و Q2</option>
+          <option value="Open Access journals (Q1/Q2)">مجلات الوصول المفتوح (Q1/Q2)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" onclick="generatePrompt()">توليد برومبت اقتراح المجلات</button>
+
+  <div class="card output-box" id="outputBox">
+    <div class="output-header">
+      <span class="output-title">البرومبت جاهز للنسخ</span>
+      <button class="copy-btn" onclick="copyPrompt()">نسخ</button>
+    </div>
+    <pre id="resultText"></pre>
+  </div>
+</div>
+
+<script>
+function generatePrompt() {
+    const title = document.getElementById('title').value || '[Insert Article Title]';
+    const abstract = document.getElementById('abstract').value || '[Insert Abstract]';
+    const field = document.getElementById('field').value;
+    const ranking = document.getElementById('ranking').value;
+
+    const prompt = `SYSTEM ROLE
+You are a senior academic editor and publishing strategist with 20+ years of experience in ${field}. You have deep knowledge of the Scopus and Web of Science (WoS) journal landscape, including scope, impact factors, and acceptance rates.
+
+ARTICLE DETAILS:
+Title: ${title}
+Abstract / Keywords: ${abstract}
+Field: ${field}
+Target Ranking: ${ranking}
+
+YOUR TASK:
+Suggest exactly 5 academic journals that are an excellent fit for this article. 
+
+For EACH journal, provide:
+1. **Journal Name** (and Publisher, e.g., Elsevier, Sage, Wiley).
+2. **Scopus/WoS Ranking** (Q1, Q2) and **Impact Factor** (approximate, latest available).
+3. **Scope Alignment**: Explain exactly WHY this journal fits the article's topic and methodology (e.g., "This journal focuses on comparative public administration, which aligns with your MENA case study").
+4. **Methodological Fit**: Does the journal prefer quantitative, qualitative, or mixed methods? 
+5. **Potential Risks/Warnings**: Mention if the journal has a very low acceptance rate (e.g., under 10%) or long review times, so the author can strategize.
+
+OUTPUT FORMAT:
+Provide the list in a structured, easy-to-read format. Do not write any introductory or concluding pleasantries. Start directly with "Journal 1:".`;
+
+    document.getElementById('resultText').textContent = prompt;
+    document.getElementById('outputBox').style.display = 'block';
+}
+
+function copyPrompt() {
+    const text = document.getElementById('resultText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'تم النسخ ✓';
+        setTimeout(() => btn.textContent = 'نسخ', 2000);
+    });
+}
+</script>
+
+</body>
+</html>
