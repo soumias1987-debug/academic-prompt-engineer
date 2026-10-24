@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مهندس البرومبت الكمي (Quantitative)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f4f7f9;color:#1a1a1a;padding:2rem 1rem}
+.container{max-width:850px;margin:0 auto}
+header{text-align:center;margin-bottom:2rem}
+h1{font-size:24px;color:#0C447C;margin-bottom:0.5rem}
+p.subtitle{color:#5a5a5a;font-size:15px}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.05);padding:2rem;margin-bottom:1.5rem}
+.form-group{margin-bottom:1.2rem}
+label{display:block;font-size:14px;font-weight:600;color:#334155;margin-bottom:6px}
+input[type=text], select, textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:border-color 0.2s}
+input[type=text]:focus, select:focus, textarea:focus{border-color:#185FA5;box-shadow:0 0 0 3px rgba(24,95,165,0.1)}
+textarea{resize:vertical;min-height:80px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}
+@media(max-width:600px){.grid, .grid-3{grid-template-columns:1fr}}
+.btn{width:100%;padding:14px;background:#185FA5;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s;margin-top:1rem}
+.btn:hover{background:#0C447C}
+.output-box{margin-top:2rem;display:none}
+.output-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.output-title{font-weight:bold;color:#0F6E56}
+.copy-btn{background:#E1F5EE;color:#085041;border:1px solid #0F6E56;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold}
+.copy-btn:hover{background:#c4eedf}
+pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:500px;overflow-y:auto}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>مهندس البرومبت الأكاديمي: الكمي</h1>
+    <p class="subtitle">أداة توليد برومبت دقيق للدراسات الكمية ونشر المجلات Q1</p>
+  </header>
+
+  <div class="card">
+    <div class="grid">
+      <div class="form-group">
+        <label>الميدان المعرفي</label>
+        <select id="field">
+          <option value="Political Science">العلوم السياسية</option>
+          <option value="Public Administration">الإدارة العامة</option>
+          <option value="International Relations">العلاقات الدولية</option>
+          <option value="Public Policy">السياسات العامة</option>
+          <option value="Sociology">علم الاجتماع</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>نمط الاستشهاد</label>
+        <select id="citation">
+          <option value="APA 7th edition">APA 7th</option>
+          <option value="Chicago Author-Date">Chicago</option>
+          <option value="Harvard">Harvard</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="form-group">
+        <label>المتغير المستقل (IV)</label>
+        <input type="text" id="iv" placeholder="مثال: جودة الحوكمة">
+      </div>
+      <div class="form-group">
+        <label>المتغير التابع (DV)</label>
+        <input type="text" id="dv" placeholder="مثال: ثقة المواطنين">
+      </div>
+      <div class="form-group">
+        <label>السياق الجغرافي/الزمني</label>
+        <input type="text" id="geo" placeholder="مثال: دول MENA، 2000–2022">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>نوع المنهج الكمي</label>
+      <select id="method">
+        <option value="multiple regression / OLS with robust standard errors">انحدار متعدد / OLS</option>
+        <option value="panel data — fixed and random effects (Hausman test)">بيانات لوحية (Panel Data)</option>
+        <option value="structural equation modeling (SEM/CFA)">نمذجة المعادلات البنيوية (SEM)</option>
+        <option value="logistic regression (odds ratios)">انحدار لوجستي</option>
+        <option value="difference-in-differences (DiD)">الفروق في الفروق (DiD)</option>
+        <option value="instrumental variables (2SLS)">متغيرات أداتية (IV)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>الفرضية أو السؤال البحثي</label>
+      <textarea id="hypo" placeholder="مثال: هل تؤثر جودة الحوكمة على ثقة المواطنين في دول الشرق الأوسط؟"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>الإطار النظري (اختياري)</label>
+      <input type="text" id="theory" placeholder="مثال: Principal-Agent Theory">
+    </div>
+
+    <button class="btn" onclick="generatePrompt()">توليد البرومبت الكمي</button>
+  </div>
+
+  <div class="card output-box" id="outputBox">
+    <div class="output-header">
+      <span class="output-title">البرومبت جاهز للنسخ</span>
+      <button class="copy-btn" onclick="copyPrompt()">نسخ</button>
+    </div>
+    <pre id="resultText"></pre>
+  </div>
+</div>
+
+<script>
+function generatePrompt() {
+    // جمع البيانات
+    const field = document.getElementById('field').value;
+    const citation = document.getElementById('citation').value;
+    const iv = document.getElementById('iv').value || '[IV]';
+    const dv = document.getElementById('dv').value || '[DV]';
+    const geo = document.getElementById('geo').value || '[Context]';
+    const method = document.getElementById('method').value;
+    const hypo = document.getElementById('hypo').value || '[Research Question]';
+    const theory = document.getElementById('theory').value;
+
+    // بناء النص
+    const prompt = `SYSTEM ROLE
+You are a senior academic author with 20+ years of peer-reviewed publishing in ${field}. You write with the analytical depth, rhetorical economy, and intellectual authority of a tenured professor. Your prose is indistinguishable from that of a human expert.
+
+ARTICLE SPECIFICATIONS
+Field: ${field}
+Quantitative method: ${method}
+Independent variable (IV): ${iv}
+Dependent variable (DV): ${dv}
+Scope: ${geo}
+Research question / hypothesis: ${hypo}${theory ? '\nTheoretical framework: ' + theory : ''}
+Citation style: ${citation}
+Writing language: English (formal academic, native-speaker register)
+
+ABSOLUTE PROHIBITIONS
+- Never begin consecutive paragraphs with the same syntactic pattern.
+- Never use em-dash ornamentally or semicolons gratuitously.
+- Never produce uniform 20–25-word sentence cadence throughout.
+- Never start the abstract or introduction with "This paper" or "This study".
+- Never use "tapestry," "landscape," "groundbreaking," "pivotal".
+
+REQUIRED STYLISTIC QUALITIES
+- Conceptual precision: every key term operationalized and consistently applied.
+- Strong argumentative architecture: claim → evidence → inference per paragraph.
+- Sentence structure variation (8–14 word declaratives + 28–42 word subordinate).
+
+SECTIONS TO PRODUCE
+
+## ABSTRACT (150–250 words)
+Begin with the research problem. Cover: gap, theory, method (${method}, ${geo}), key finding with statistic, contribution to ${field}.
+
+## INTRODUCTION (600–900 words)
+Empirical hook → puzzle → debate → gap → research question → preview. No lists.
+
+## LITERATURE REVIEW
+Thematically organized. Each theme: analytical claim, synthesize 3–6 studies, transitional inference. End with gap paragraph.
+
+## THEORETICAL FRAMEWORK
+(a) logic linking ${iv} to ${dv}, (b) causal mechanism, (c) hypotheses H1/H2, (d) confounders and identification.
+
+## METHODOLOGY
+Design rationale → data source, N → variable operationalization → analytical procedure (${method}) → robustness (VIF, heteroskedasticity).
+
+## RESULTS
+Lead each paragraph with the finding, then report statistic (β = X.XX, SE = X.XX, p < 0.0X, 95% CI [X.XX, X.XX]), then interpret magnitude. Refer to tables/figures.
+
+## DISCUSSION
+Interpret findings against theory, compare with prior studies, address anomalies, state theoretical implication for ${field}.
+
+## CONCLUSION
+Synthesize the argument. Contributions → limitations → future research. Do NOT begin "In conclusion."
+
+OUTPUT FORMAT
+- Section headers: bold, sentence case, no numbering.
+- Placeholder statistics: [β = X.XX, SE = X.XX, p < 0.0X]
+- Placeholder citations: (Author, Year)
+- Begin immediately with content — no meta-commentary.`;
+
+    // عرض النتيجة
+    document.getElementById('resultText').textContent = prompt;
+    document.getElementById('outputBox').style.display = 'block';
+}
+
+function copyPrompt() {
+    const text = document.getElementById('resultText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'تم النسخ ✓';
+        setTimeout(() => btn.textContent = 'نسخ', 2000);
+    });
+}
+</script>
+
+</body>
+</html>
