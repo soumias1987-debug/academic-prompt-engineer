@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مهندس البرومبت: مولّد الأسئلة البحثية</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+header{text-align:center;margin-bottom:2rem}
+h1{font-size:26px;color:#D946EF;margin-bottom:0.5rem}
+p.subtitle{color:#64748b;font-size:15px}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.04);padding:2rem;margin-bottom:1.5rem;border:1px solid #e2e8f0}
+.section-title{font-size:16px;font-weight:700;color:#D946EF;margin-bottom:1rem;border-bottom:2px solid #FAE8FF;padding-bottom:0.5rem}
+.form-group{margin-bottom:1.2rem}
+label{display:block;font-size:14px;font-weight:600;color:#334155;margin-bottom:6px}
+input[type=text], select, textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:all 0.2s}
+input[type=text]:focus, select:focus, textarea:focus{border-color:#D946EF;box-shadow:0 0 0 3px rgba(217,70,239,0.1)}
+textarea{resize:vertical;min-height:100px;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+.btn{width:100%;padding:14px;background:#D946EF;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s;margin-top:1rem}
+.btn:hover{background:#C026D3}
+.output-box{margin-top:2rem;display:none}
+.output-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.output-title{font-weight:bold;color:#D946EF}
+.copy-btn{background:#FAE8FF;color:#D946EF;border:1px solid #D946EF;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold}
+.copy-btn:hover{background:#F5D0FE}
+pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:600px;overflow-y:auto}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>مولّد ومُحسّن الأسئلة البحثية</h1>
+    <p class="subtitle">صياغة أسئلة بحثية دقيقة وفق معايير FINER للمجلات Q1</p>
+  </header>
+
+  <div class="card">
+    <div class="section-title">1. تفاصيل الفكرة</div>
+    
+    <div class="grid">
+      <div class="form-group">
+        <label>الميدان المعرفي</label>
+        <select id="field">
+          <option value="Political Science">العلوم السياسية</option>
+          <option value="Public Administration">الإدارة العامة</option>
+          <option value="International Relations">العلاقات الدولية</option>
+          <option value="Public Policy">السياسات العامة</option>
+          <option value="Sociology">علم الاجتماع</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>لغة المخرج</label>
+        <select id="lang">
+          <option value="English">إنجليزية أكاديمية</option>
+          <option value="Arabic">عربية فصحى أكاديمية</option>
+          <option value="French">فرنسية أكاديمية</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>الموضوع العام أو المشكلة البحثية</label>
+      <textarea id="topic" placeholder="مثال: أريد دراسة تأثير وسائل التواصل الاجتماعي على المشاركة السياسية للشباب في دول الخليج، لكنني لا أعرف كيف أصيغ السؤال البحثي بدقة."></textarea>
+    </div>
+    
+    <div class="grid">
+      <div class="form-group">
+        <label>المنهجية المفضلة (اختياري)</label>
+        <select id="method">
+          <option value="Quantitative">كمي</option>
+          <option value="Qualitative">نوعي</option>
+          <option value="Mixed Methods">مختلط</option>
+          <option value="No preference">لا يوجد تفضيل (اقترح الأفضل)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>هل لديك فجوة محددة تريد معالجتها؟</label>
+        <input type="text" id="gap" placeholder="مثال: نقص الدراسات التي تقارن بين الفئات العمرية">
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" onclick="generatePrompt()">توليد برومبت الأسئلة البحثية</button>
+
+  <div class="card output-box" id="outputBox">
+    <div class="output-header">
+      <span class="output-title">البرومبت جاهز للنسخ</span>
+      <button class="copy-btn" onclick="copyPrompt()">نسخ</button>
+    </div>
+    <pre id="resultText"></pre>
+  </div>
+</div>
+
+<script>
+function generatePrompt() {
+    const field = document.getElementById('field').value;
+    const topic = document.getElementById('topic').value || '[Insert General Topic]';
+    const method = document.getElementById('method').value;
+    const gap = document.getElementById('gap').value || 'Not specified';
+    const lang = document.getElementById('lang').value;
+
+    const prompt = `SYSTEM ROLE
+You are a senior academic supervisor and methodologist with 20+ years of experience guiding PhD students to publish in top-tier Q1 journals in ${field}.
+
+USER'S GENERAL TOPIC:
+"""
+${topic}
+"""
+PREFERRED METHODOLOGY: ${method}
+KNOWN GAP TO ADDRESS: ${gap}
+TARGET LANGUAGE: ${lang}
+
+YOUR TASK:
+Generate 5 highly refined, publishable Research Questions (RQs) based on the user's topic. 
+Each RQ must strictly adhere to the FINER criteria:
+- Feasible: Can be answered with available data and methods.
+- Interesting: Addresses a genuine puzzle or paradox.
+- Novel: Fills a specific gap or challenges existing literature.
+- Ethical: Poses no harm to participants.
+- Relevant: Has theoretical and practical implications for ${field}.
+
+OUTPUT FORMAT:
+For each of the 5 RQs, provide:
+1. The Research Question itself (clear, concise, arguable).
+2. The Methodological Approach (how to answer it: data, variables, or qualitative strategy).
+3. The Theoretical Justification (why it matters and which theory it speaks to).
+
+Do NOT write an introductory or concluding paragraph. Start directly with "Research Question 1:".`;
+
+    document.getElementById('resultText').textContent = prompt;
+    document.getElementById('outputBox').style.display = 'block';
+}
+
+function copyPrompt() {
+    const text = document.getElementById('resultText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'تم النسخ ✓';
+        setTimeout(() => btn.textContent = 'نسخ', 2000);
+    });
+}
+</script>
+
+</body>
+</html>
