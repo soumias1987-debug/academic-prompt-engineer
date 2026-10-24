@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مهندس البرومبت النوعي</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+header{text-align:center;margin-bottom:2rem}
+h1{font-size:26px;color:#0F6E56;margin-bottom:0.5rem}
+p.subtitle{color:#64748b;font-size:15px}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.04);padding:2rem;margin-bottom:1.5rem;border:1px solid #e2e8f0}
+.section-title{font-size:16px;font-weight:700;color:#0F6E56;margin-bottom:1rem;border-bottom:2px solid #E1F5EE;padding-bottom:0.5rem}
+.form-group{margin-bottom:1.2rem}
+label{display:block;font-size:14px;font-weight:600;color:#334155;margin-bottom:6px}
+input[type=text], select, textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:all 0.2s}
+input[type=text]:focus, select:focus, textarea:focus{border-color:#0F6E56;box-shadow:0 0 0 3px rgba(15,110,86,0.1)}
+textarea{resize:vertical;min-height:80px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}
+@media(max-width:600px){.grid, .grid-3{grid-template-columns:1fr}}
+
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tag{padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid #cbd5e1;color:#475569;background:#f8fafc;transition:all 0.2s;user-select:none}
+.tag:hover{border-color:#94a3b8}
+.tag.on-blue{background:#E6F1FB;border-color:#185FA5;color:#0C447C;font-weight:600}
+.tag.on-red{background:#FCEBEB;border-color:#A32D2D;color:#791F1F;font-weight:600}
+.tag.on-teal{background:#E1F5EE;border-color:#0F6E56;color:#085041;font-weight:600}
+
+.btn{width:100%;padding:14px;background:#0F6E56;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s;margin-top:1rem}
+.btn:hover{background:#085041}
+.output-box{margin-top:2rem;display:none}
+.output-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.output-title{font-weight:bold;color:#0F6E56}
+.copy-btn{background:#E1F5EE;color:#085041;border:1px solid #0F6E56;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold}
+.copy-btn:hover{background:#c4eedf}
+pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:600px;overflow-y:auto}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>مهندس البرومبت الأكاديمي: النوعي</h1>
+    <p class="subtitle">أداة متقدمة لتوليد برومبت الدراسات النوعية (Q1)</p>
+  </header>
+
+  <div class="card">
+    <div class="section-title">1. هوية المقال</div>
+    <div class="grid">
+      <div class="form-group">
+        <label>الميدان المعرفي</label>
+        <select id="field">
+          <option value="Political Science">العلوم السياسية</option>
+          <option value="Public Administration">الإدارة العامة</option>
+          <option value="International Relations">العلاقات الدولية</option>
+          <option value="Public Policy">السياسات العامة</option>
+          <option value="Sociology">علم الاجتماع</option>
+          <option value="Education">علوم التربية</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>نمط الاستشهاد</label>
+        <select id="citation">
+          <option value="APA 7th edition">APA 7th</option>
+          <option value="Chicago Author-Date">Chicago Author-Date</option>
+          <option value="Harvard">Harvard</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="form-group">
+        <label>الظاهرة / المفهوم محل الاهتمام</label>
+        <input type="text" id="phenom" placeholder="مثال: تجربة المواطنين مع اللامركزية">
+      </div>
+      <div class="form-group">
+        <label>المشاركون والسياق</label>
+        <input type="text" id="participants" placeholder="مثال: 25 موظفًا بلديًا في تونس">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>الفرضية أو السؤال البحثي</label>
+      <textarea id="hypo" placeholder="اكتب سؤالك البحثي..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>الإطار النظري / المفاهيم المحسسة (اختياري)</label>
+      <input type="text" id="theory" placeholder="مثال: Grounded Theory, Reflexivity">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">2. المنهجية واللغة</div>
+    <div class="grid">
+      <div class="form-group">
+        <label>نوع المنهج النوعي</label>
+        <select id="method">
+          <option value="phenomenology — in-depth interviews, Colaizzi/van Manen analysis, bracketing">الظواهرية (Phenomenology)</option>
+          <option value="grounded theory — open/axial/selective coding, theoretical saturation">النظرية المجذرة (Grounded Theory)</option>
+          <option value="multiple case study — replication logic, cross-case synthesis">دراسة الحالة (Case Study)</option>
+          <option value="ethnography — prolonged engagement, participant observation, field notes">الإثنوغرافيا (Ethnography)</option>
+          <option value="reflexive thematic analysis (Braun & Clarke) — six-phase coding">التحليل الموضوعي (Thematic Analysis)</option>
+          <option value="critical discourse analysis — Fairclough three-dimensional model">تحليل الخطاب النقدي (CDA)</option>
+          <option value="narrative inquiry — restorying, three-dimensional space">البحث السردي (Narrative)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>لغة المخرج</label>
+        <select id="lang">
+          <option value="English (formal academic, native-speaker register)">إنجليزية أكاديمية</option>
+          <option value="French (registre académique)">فرنسية أكاديمية</option>
+          <option value="Modern Standard Arabic (عربية فصحى أكاديمية)">عربية فصحى</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="form-group">
+        <label>الأقسام المطلوبة (انقر للتفعيل/الإلغاء)</label>
+        <div class="tag-cloud" id="sections">
+            <span class="tag on-blue" data-v="abstract">الملخص</span>
+            <span class="tag on-blue" data-v="intro">المقدمة</span>
+            <span class="tag on-blue" data-v="litrev">مراجعة الأدبيات</span>
+            <span class="tag on-blue" data-v="theory">الإطار النظري</span>
+            <span class="tag on-blue" data-v="method">المنهجية</span>
+            <span class="tag on-blue" data-v="results">النتائج (الموضوعات)</span>
+            <span class="tag on-blue" data-v="discussion">النقاش</span>
+            <span class="tag on-blue" data-v="conclusion">الخاتمة</span>
+        </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">3. جودة الأسلوب</div>
+    <div class="form-group">
+      <label>محظورات صارمة</label>
+      <div class="tag-cloud" id="avoid">
+        <span class="tag on-red" data-v="ai_phrases">عبارات AI النمطية</span>
+        <span class="tag on-red" data-v="passive">مبني للمجهول مفرط</span>
+        <span class="tag on-red" data-v="lists">قوائم بدلاً من نثر</span>
+        <span class="tag on-red" data-v="vague">غموض غير مقصود</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>صفات مطلوبة</label>
+      <div class="tag-cloud" id="style">
+        <span class="tag on-teal" data-v="precise">دقة مفاهيمية</span>
+        <span class="tag on-teal" data-v="argument">بنية حجاجية متماسكة</span>
+        <span class="tag on-teal" data-v="varied">تنويع بنية الجمل</span>
+        <span class="tag on-teal" data-v="reflexive">انعكاسية (Reflexivity)</span>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" onclick="generatePrompt()">توليد البرومبت النوعي</button>
+
+  <div class="card output-box" id="outputBox">
+    <div class="output-header">
+      <span class="output-title">البرومبت جاهز للنسخ</span>
+      <button class="copy-btn" onclick="copyPrompt()">نسخ</button>
+    </div>
+    <pre id="resultText"></pre>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('#sections .tag').forEach(t=>t.addEventListener('click',()=>t.classList.toggle('on-blue')));
+document.querySelectorAll('#avoid .tag').forEach(t=>t.addEventListener('click',()=>t.classList.toggle('on-red')));
+document.querySelectorAll('#style .tag').forEach(t=>t.addEventListener('click',()=>t.classList.toggle('on-teal')));
+
+const avoidMap={
+    ai_phrases:'AI-signature phrases: "It is worth noting," "In conclusion," "Delve into," "Shed light on," "Tapestry"',
+    passive:'excessive passive voice',
+    lists:'bulleted/numbered lists — integrate as prose',
+    vague:'undefined abstract terms — operationalize at first use'
+};
+const styleMap={
+    precise:'conceptual precision: every key term operationalized and consistently applied',
+    argument:'strong argumentative architecture: claim → evidence → inference per paragraph',
+    varied:'sentence structure variation (8–14 word declaratives + 28–42 word subordinate)',
+    reflexive:'reflexivity: acknowledge researcher position, influence, and interpretive choices'
+};
+const sectionInstructions={
+    abstract:'\n## ABSTRACT (150–250 words)\nBegin with the phenomenon (NOT "This paper"). Cover: phenomenon and context, research question, methodological approach ({METHOD}), participants and sampling, key themes (2–3), contribution to {FIELD}.',
+    intro:'\n## INTRODUCTION (600–900 words)\nOpen with the lived phenomenon or a striking contextual detail. Then: problem → why it matters → what is known and what is missing → research question → brief preview of themes. No lists.',
+    litrev:'\n## LITERATURE REVIEW\nThematically organized. Each theme: analytical claim, synthesize 3–6 studies (noting method and sample), transitional inference. End with the gap and how the qualitative approach addresses it.',
+    theory:'\n## THEORETICAL & CONCEPTUAL FRAMEWORK{THEORY_NOTE}\nPresent sensitizing concepts (not testable hypotheses). Explain how the framework guides data collection and coding. State reflexivity position.',
+    method:'\n## METHODOLOGY\nDesign: {METHOD}. Cover: sampling strategy (purposive/theoretical), N and saturation, data collection, analytical procedure (coding phases), trustworthiness (credibility, transferability, dependability, confirmability), ethics, researcher positionality. Sufficient detail for audit trail.',
+    results:'\n## FINDINGS / RESULTS\nPresent 3–5 themes. For each theme: (a) name and define, (b) present illustrative verbatim quotations (with participant code e.g., P07), (c) interpret what the theme reveals. Do NOT report statistics.',
+    discussion:'\n## DISCUSSION\n(a) Interpret each theme against the conceptual framework. (b) Compare with 3–5 prior qualitative studies. (c) Address unexpected findings. (d) Articulate the theoretical contribution to {FIELD}.',
+    conclusion:'\n## CONCLUSION\nSynthesize the interpretive argument. Contributions → methodological limitations (sampling, transferability) → implications for practice. Do NOT begin "In conclusion."'
+};
+
+function generatePrompt() {
+    const field = document.getElementById('field').value;
+    const citation = document.getElementById('citation').value;
+    const phenom = document.getElementById('phenom').value || '[Phenomenon]';
+    const participants = document.getElementById('participants').value || '[Participants]';
+    const method = document.getElementById('method').value;
+    const hypo = document.getElementById('hypo').value || '[Research Question]';
+    const theory = document.getElementById('theory').value;
+    const lang = document.getElementById('lang').value;
+
+    const sections = [...document.querySelectorAll('#sections .tag.on-blue')].map(t=>t.dataset.v);
+    const avoid = [...document.querySelectorAll('#avoid .tag.on-red')].map(t=>t.dataset.v);
+    const style = [...document.querySelectorAll('#style .tag.on-teal')].map(t=>t.dataset.v);
+
+    let sectText = '';
+    sections.forEach(s => {
+        if(sectionInstructions[s]) {
+            let t = sectionInstructions[s]
+                .replace(/{METHOD}/g, method)
+                .replace(/{FIELD}/g, field)
+                .replace(/{THEORY_NOTE}/g, theory ? ' ('+theory+')' : '');
+            sectText += t;
+        }
+    });
+
+    const avoidList = avoid.map(a=>avoidMap[a]).filter(Boolean).map(x=>'  • '+x).join('\n');
+    const styleList = style.map(s=>styleMap[s]).filter(Boolean).map(x=>'  • '+x).join('\n');
+
+    const prompt = `SYSTEM ROLE
+You are a senior qualitative academic author with 20+ years of peer-reviewed publishing in ${field}. You write with analytical depth and reflexivity.
+
+ARTICLE SPECIFICATIONS
+Field: ${field}
+Qualitative Method: ${method}
+Phenomenon: ${phenom}
+Participants / Context: ${participants}
+Research question: ${hypo}${theory ? '\nConceptual Framework: '+theory : ''}
+Citation style: ${citation}
+Language: ${lang}
+
+ABSOLUTE PROHIBITIONS
+${avoidList || '  • Standard academic prohibitions apply'}
+
+REQUIRED STYLISTIC QUALITIES
+${styleList || '  • Standard scholarly quality applies'}
+
+SECTIONS TO PRODUCE${sectText || '\n\nProduce a complete qualitative journal article.'}
+
+OUTPUT FORMAT
+- Section headers: bold, sentence case, no numbering.
+- Participant quotes in quotation marks with codes (e.g., P01).
+- Placeholder citations: (Author, Year)
+- Begin immediately with content.`;
+
+    document.getElementById('resultText').textContent = prompt;
+    document.getElementById('outputBox').style.display = 'block';
+}
+
+function copyPrompt() {
+    const text = document.getElementById('resultText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'تم النسخ ✓';
+        setTimeout(() => btn.textContent = 'نسخ', 2000);
+    });
+}
+</script>
+
+</body>
+</html>
