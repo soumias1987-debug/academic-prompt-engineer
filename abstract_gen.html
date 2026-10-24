@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مهندس البرومبت: صانع الملخصات</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+header{text-align:center;margin-bottom:2rem}
+h1{font-size:26px;color:#E11D48;margin-bottom:0.5rem}
+p.subtitle{color:#64748b;font-size:15px}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.04);padding:2rem;margin-bottom:1.5rem;border:1px solid #e2e8f0}
+.section-title{font-size:16px;font-weight:700;color:#E11D48;margin-bottom:1rem;border-bottom:2px solid #FFE4E6;padding-bottom:0.5rem}
+.form-group{margin-bottom:1.2rem}
+label{display:block;font-size:14px;font-weight:600;color:#334155;margin-bottom:6px}
+input[type=text], select, textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:all 0.2s}
+input[type=text]:focus, select:focus, textarea:focus{border-color:#E11D48;box-shadow:0 0 0 3px rgba(225,29,72,0.1)}
+textarea{resize:vertical;min-height:180px;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+.btn{width:100%;padding:14px;background:#E11D48;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s;margin-top:1rem}
+.btn:hover{background:#BE123C}
+.output-box{margin-top:2rem;display:none}
+.output-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.output-title{font-weight:bold;color:#E11D48}
+.copy-btn{background:#FFE4E6;color:#E11D48;border:1px solid #E11D48;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold}
+.copy-btn:hover{background:#FECDD3}
+pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:600px;overflow-y:auto}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>صانع وتلخيص الملخص (Abstract)</h1>
+    <p class="subtitle">توليد ملخص احترافي دقيق يتوافق مع معايير المجلات (Q1)</p>
+  </header>
+
+  <div class="card">
+    <div class="section-title">1. مدخلات الملخص</div>
+
+    <div class="grid">
+      <div class="form-group">
+        <label>لغة الملخص المطلوب</label>
+        <select id="lang">
+          <option value="English">إنجليزية أكاديمية</option>
+          <option value="Arabic">عربية فصحى أكاديمية</option>
+          <option value="French">فرنسية أكاديمية</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>الحد الأقصى للكلمات (Word Limit)</label>
+        <select id="limit">
+          <option value="200">200 كلمة (صارم جداً)</option>
+          <option value="250">250 كلمة (شائع)</option>
+          <option value="300">300 كلمة (مرن)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>النص الكامل للمقال (أو الأجزاء الأساسية منه)</label>
+      <textarea id="fullText" placeholder="الصق هنا المقدمة، الفرضيات، النتائج الرئيسية، والاستنتاج..."></textarea>
+    </div>
+  </div>
+
+  <button class="btn" onclick="generatePrompt()">توليد برومبت الملخص</button>
+
+  <div class="card output-box" id="outputBox">
+    <div class="output-header">
+      <span class="output-title">البرومبت جاهز للنسخ</span>
+      <button class="copy-btn" onclick="copyPrompt()">نسخ</button>
+    </div>
+    <pre id="resultText"></pre>
+  </div>
+</div>
+
+<script>
+function generatePrompt() {
+    const fullText = document.getElementById('fullText').value || '[Insert Full Text Here]';
+    const lang = document.getElementById('lang').value;
+    const limit = document.getElementById('limit').value;
+
+    const prompt = `SYSTEM ROLE
+You are a senior academic editor with 20+ years of experience writing and editing abstracts for top-tier Q1 journals.
+
+FULL TEXT / KEY SECTIONS:
+"""
+${fullText}
+"""
+
+TARGET LANGUAGE: ${lang}
+WORD LIMIT: ${limit} words (Strictly adhere to this limit)
+
+YOUR TASK:
+Write a single, highly structured, and impactful abstract. 
+
+The abstract MUST cover the following in this exact logical order:
+1. **Background & Gap:** The broader context and the specific problem this paper addresses (1-2 sentences).
+2. **Objective & RQ:** The main research question or hypothesis.
+3. **Methodology:** The design, data source, sample size, and analytical technique.
+4. **Key Findings:** The most important empirical or theoretical results (include a placeholder for the key statistic if quantitative, e.g., [β = X.XX, p < 0.05]).
+5. **Contribution:** Why this paper matters to the field.
+
+CRITICAL PROHIBITIONS:
+- Do NOT start with "This paper", "This study", or "In this article".
+- Do NOT use AI-signature phrases (e.g., "Delve into," "Tapestry," "Shed light on").
+- Do NOT include any meta-commentary (e.g., do not write "Here is your abstract:").
+- Do NOT use bullet points. Write it as a single, flowing paragraph.
+
+OUTPUT INSTRUCTIONS:
+Just output the final abstract text.`;
+
+    document.getElementById('resultText').textContent = prompt;
+    document.getElementById('outputBox').style.display = 'block';
+}
+
+function copyPrompt() {
+    const text = document.getElementById('resultText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'تم النسخ ✓';
+        setTimeout(() => btn.textContent = 'نسخ', 2000);
+    });
+}
+</script>
+
+</body>
+</html>
