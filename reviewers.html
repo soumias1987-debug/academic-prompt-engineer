@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مهندس البرومبت: الرد على المحكمين</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+header{text-align:center;margin-bottom:2rem}
+h1{font-size:26px;color:#0284C7;margin-bottom:0.5rem}
+p.subtitle{color:#64748b;font-size:15px}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.04);padding:2rem;margin-bottom:1.5rem;border:1px solid #e2e8f0}
+.section-title{font-size:16px;font-weight:700;color:#0284C7;margin-bottom:1rem;border-bottom:2px solid #E0F2FE;padding-bottom:0.5rem}
+.form-group{margin-bottom:1.2rem}
+label{display:block;font-size:14px;font-weight:600;color:#334155;margin-bottom:6px}
+input[type=text], select, textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:all 0.2s}
+input[type=text]:focus, select:focus, textarea:focus{border-color:#0284C7;box-shadow:0 0 0 3px rgba(2,132,199,0.1)}
+textarea{resize:vertical;min-height:120px;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+.btn{width:100%;padding:14px;background:#0284C7;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s;margin-top:1rem}
+.btn:hover{background:#0369A1}
+.output-box{margin-top:2rem;display:none}
+.output-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.output-title{font-weight:bold;color:#0284C7}
+.copy-btn{background:#E0F2FE;color:#0284C7;border:1px solid #0284C7;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold}
+.copy-btn:hover{background:#BAE6FD}
+pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:600px;overflow-y:auto}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>صانع الرد على المحكمين</h1>
+    <p class="subtitle">صياغة ردود أكاديمية مهذبة ومقنعة لملاحظات المراجعين (Q1)</p>
+  </header>
+
+  <div class="card">
+    <div class="section-title">1. ملاحظة المحكم</div>
+    
+    <div class="form-group">
+      <label>نص ملاحظة المحكم (Reviewer Comment)</label>
+      <textarea id="reviewerComment" placeholder="مثال: The authors failed to adequately address the issue of endogeneity in their regression model. Furthermore, the literature review is outdated and misses key works from 2022-2023."></textarea>
+    </div>
+
+    <div class="grid">
+      <div class="form-group">
+        <label>موقفك من الملاحظة</label>
+        <select id="action">
+          <option value="Accepted: We fully agree with the reviewer and have made the requested changes.">قبلت الملاحظة (وقمت بالتعديل)</option>
+          <option value="Partially Accepted: We agree with the core concern but have taken a different (justified) methodological approach.">قبلت جزئياً (بتبرير منهجي)</option>
+          <option value="Respectfully Declined: We appreciate the comment but believe the current approach is justified for the following reasons...">رفضت الملاحظة بأدب (مع تقديم تبرير)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>لغة المخرج</label>
+        <select id="lang">
+          <option value="English">إنجليزية أكاديمية</option>
+          <option value="Arabic">عربية فصحى أكاديمية</option>
+          <option value="French">فرنسية أكاديمية</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>ماذا فعلت بالضبط؟ (اختياري - لكنه مهم جداً)</label>
+      <textarea id="myAction" rows="3" placeholder="مثال: أضفت اختبار Hausman، وأضفت 5 دراسات جديدة في مراجعة الأدبيات (صفحة 4، الفقرة 2)..."></textarea>
+    </div>
+  </div>
+
+  <button class="btn" onclick="generatePrompt()">توليد برومبت الرد</button>
+
+  <div class="card output-box" id="outputBox">
+    <div class="output-header">
+      <span class="output-title">البرومبت جاهز للنسخ</span>
+      <button class="copy-btn" onclick="copyPrompt()">نسخ</button>
+    </div>
+    <pre id="resultText"></pre>
+  </div>
+</div>
+
+<script>
+function generatePrompt() {
+    const comment = document.getElementById('reviewerComment').value || '[Insert Reviewer Comment]';
+    const action = document.getElementById('action').value;
+    const lang = document.getElementById('lang').value;
+    const myAction = document.getElementById('myAction').value || '[Explain what you changed in the manuscript]';
+
+    const prompt = `SYSTEM ROLE
+You are a senior academic author responding to peer-reviewer comments for a top-tier Q1 journal. Your tone must be highly professional, respectful, and scientifically rigorous.
+
+REVIEWER COMMENT:
+"""
+${comment}
+"""
+
+AUTHOR'S STANCE: ${action}
+AUTHOR'S ACTION TAKEN IN MANUSCRIPT: ${myAction}
+
+TARGET LANGUAGE: ${lang}
+
+INSTRUCTIONS FOR GENERATING THE RESPONSE:
+1. Begin with a gracious acknowledgment of the reviewer's time and insight.
+2. Address the specific point raised directly. Do not evade the critique.
+3. If accepted: clearly state the exact changes made in the manuscript (e.g., "We have added a new paragraph in Section 4.2, page 15..."). Provide the revised text if applicable.
+4. If partially accepted/declined: respectfully explain the methodological or theoretical rationale for your current approach. Cite literature if necessary to support your stance. Offer a compromise if possible.
+5. Maintain a humble, scholarly tone. Never sound defensive or aggressive.
+
+OUTPUT FORMAT:
+Provide ONLY the drafted response. Do not include meta-commentary (e.g., do not write "Here is a suggested response:"). Just start with "Response to Reviewer:" and write the text.`;
+
+    document.getElementById('resultText').textContent = prompt;
+    document.getElementById('outputBox').style.display = 'block';
+}
+
+function copyPrompt() {
+    const text = document.getElementById('resultText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'تم النسخ ✓';
+        setTimeout(() => btn.textContent = 'نسخ', 2000);
+    });
+}
+</script>
+
+</body>
+</html>
