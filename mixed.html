@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مهندس البرومبت: المنهج المختلط المتقدم</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+header{text-align:center;margin-bottom:2rem}
+h1{font-size:26px;color:#534AB7;margin-bottom:0.5rem}
+p.subtitle{color:#64748b;font-size:15px}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.04);padding:2rem;margin-bottom:1.5rem;border:1px solid #e2e8f0}
+.section-title{font-size:16px;font-weight:700;color:#534AB7;margin-bottom:1rem;border-bottom:2px solid #EEEDFE;padding-bottom:0.5rem}
+.form-group{margin-bottom:1.2rem}
+label{display:block;font-size:14px;font-weight:600;color:#334155;margin-bottom:6px}
+input[type=text], select, textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:all 0.2s}
+input[type=text]:focus, select:focus, textarea:focus{border-color:#534AB7;box-shadow:0 0 0 3px rgba(83,74,183,0.1)}
+textarea{resize:vertical;min-height:80px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}
+@media(max-width:600px){.grid, .grid-3{grid-template-columns:1fr}}
+
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tag{padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid #cbd5e1;color:#475569;background:#f8fafc;transition:all 0.2s;user-select:none}
+.tag:hover{border-color:#94a3b8}
+.tag.on-blue{background:#E6F1FB;border-color:#185FA5;color:#0C447C;font-weight:600}
+.tag.on-red{background:#FCEBEB;border-color:#A32D2D;color:#791F1F;font-weight:600}
+.tag.on-teal{background:#E1F5EE;border-color:#0F6E56;color:#085041;font-weight:600}
+
+.btn{width:100%;padding:14px;background:#534AB7;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s;margin-top:1rem}
+.btn:hover{background:#3C3489}
+.output-box{margin-top:2rem;display:none}
+.output-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.output-title{font-weight:bold;color:#534AB7}
+.copy-btn{background:#EEEDFE;color:#534AB7;border:1px solid #534AB7;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold}
+.copy-btn:hover{background:#d8d6f8}
+pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:600px;overflow-y:auto}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>مهندس البرومبت: المنهج المختلط</h1>
+    <p class="subtitle">أداة توليد برومبت للدراسات المختلطة المتقدمة (Q1)</p>
+  </header>
+
+  <div class="card">
+    <div class="section-title">1. هوية المقال والسياق</div>
+    <div class="grid">
+      <div class="form-group">
+        <label>الميدان المعرفي</label>
+        <select id="field">
+          <option value="Political Science">العلوم السياسية</option>
+          <option value="Public Administration">الإدارة العامة</option>
+          <option value="International Relations">العلاقات الدولية</option>
+          <option value="Public Policy">السياسات العامة</option>
+          <option value="Sociology">علم الاجتماع</option>
+          <option value="Education">علوم التربية</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>نمط الاستشهاد</label>
+        <select id="citation">
+          <option value="APA 7th edition">APA 7th</option>
+          <option value="Chicago Author-Date">Chicago Author-Date</option>
+          <option value="Harvard">Harvard</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="form-group">
+        <label>الظاهرة / المتغيرات</label>
+        <input type="text" id="phenom" placeholder="مثال: أثر اللامركزية على الرضا">
+      </div>
+      <div class="form-group">
+        <label>المشاركون / العينة والسياق</label>
+        <input type="text" id="participants" placeholder="مثال: 300 استبيان + 20 مقابلة، تونس">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>الفرضية أو السؤال البحثي</label>
+      <textarea id="hypo" placeholder="اكتب سؤالك البحثي..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>الإطار النظري (اختياري)</label>
+      <input type="text" id="theory" placeholder="مثال: Principal-Agent Theory">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">2. التصميم المنهجي (التفصيل الدقيق)</div>
+    <div class="form-group">
+      <label>نوع التصميم المختلط</label>
+      <select id="method">
+        <option value="Exploratory Sequential Design (QUAL → quan): Qualitative exploration (interviews) → themes → instrument development → quantitative testing (survey)">استكشافي متسلسل (QUAL → QUAN)</option>
+        <option value="Explanatory Sequential Design (QUAN → qual): Quantitative survey → statistical findings → qualitative interviews to explain the 'why' and 'how'">تفسيري متسلسل (QUAN → QUAL)</option>
+        <option value="Convergent Parallel Design (QUAN + QUAL): Concurrent data collection, independent analysis, side-by-side comparison (joint display)">متوازي متقارب (QUAN + QUAL)</option>
+        <option value="Embedded Design: One strand embedded within the other (e.g., qualitative process evaluation within a quantitative RCT)">تصميم مدمج (Embedded)</option>
+        <option value="Transformative Design: Framed within a social justice or critical theory framework, mixing methods to address power dynamics">تصميم تحويلي (Transformative)</option>
+        <option value="Multiphase Mixed Methods: Multiple interconnected phases over time (e.g., longitudinal program evaluation)">متعدد المراحل (Multiphase)</option>
+      </select>
+    </div>
+    
+    <div class="grid">
+      <div class="form-group">
+        <label>برامج التحليل الكمي (QUAN)</label>
+        <input type="text" id="soft_quant" placeholder="مثال: SPSS, R, Stata, SmartPLS">
+      </div>
+      <div class="form-group">
+        <label>برامج التحليل النوعي (QUAL)</label>
+        <input type="text" id="soft_qual" placeholder="مثال: NVivo, MAXQDA, Atlas.ti">
+      </div>
+    </div>
+
+    <div class="form-group">
+        <label>الأقسام المطلوبة (انقر للتفعيل/الإلغاء)</label>
+        <div class="tag-cloud" id="sections">
+            <span class="tag on-blue" data-v="abstract">الملخص</span>
+            <span class="tag on-blue" data-v="intro">المقدمة</span>
+            <span class="tag on-blue" data-v="litrev">مراجعة الأدبيات</span>
+            <span class="tag on-blue" data-v="theory">الإطار النظري</span>
+            <span class="tag on-blue" data-v="method">المنهجية</span>
+            <span class="tag on-blue" data-v="results">النتائج (مدمجة)</span>
+            <span class="tag on-blue" data-v="discussion">النقاش</span>
+            <span class="tag on-blue" data-v="conclusion">الخاتمة</span>
+        </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">3. جودة الأسلوب واللغة</div>
+    <div class="grid">
+      <div class="form-group">
+        <label>لغة المخرج</label>
+        <select id="lang">
+          <option value="English (formal academic, native-speaker register)">إنجليزية أكاديمية</option>
+          <option value="French (registre académique)">فرنسية أكاديمية</option>
+          <option value="Modern Standard Arabic (عربية فصحى أكاديمية)">عربية فصحى</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>محظورات صارمة</label>
+      <div class="tag-cloud" id="avoid">
+        <span class="tag on-red" data-v="ai_phrases">عبارات AI النمطية</span>
+        <span class="tag on-red" data-v="passive">مبني للمجهول مفرط</span>
+        <span class="tag on-red" data-v="lists">قوائم بدلاً من نثر</span>
+        <span class="tag on-red" data-v="vague">غموض غير مقصود</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>صفات مطلوبة</label>
+      <div class="tag-cloud" id="style">
+        <span class="tag on-teal" data-v="precise">دقة مفاهيمية</span>
+        <span class="tag on-teal" data-v="argument">بنية حجاجية متماسكة</span>
+        <span class="tag on-teal" data-v="varied">تنويع بنية الجمل</span>
+        <span class="tag on-teal" data-v="scholarly">لهجة أكاديمية رصينة</span>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" onclick="generatePrompt()">توليد البرومبت المختلط</button>
+
+  <div class="card output-box" id="outputBox">
+    <div class="output-header">
+      <span class="output-title">البرومبت جاهز للنسخ</span>
+      <button class="copy-btn" onclick="copyPrompt()">نسخ</button>
+    </div>
+    <pre id="resultText"></pre>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('#sections .tag').forEach(t=>t.addEventListener('click',()=>t.classList.toggle('on-blue')));
+document.querySelectorAll('#avoid .tag').forEach(t=>t.addEventListener('click',()=>t.classList.toggle('on-red')));
+document.querySelectorAll('#style .tag').forEach(t=>t.addEventListener('click',()=>t.classList.toggle('on-teal')));
+
+const avoidMap={
+    ai_phrases:'AI-signature phrases: "It is worth noting," "In conclusion," "Delve into," "Shed light on," "Tapestry"',
+    passive:'excessive passive voice',
+    lists:'bulleted/numbered lists — integrate as prose',
+    vague:'undefined abstract terms — operationalize at first use'
+};
+const styleMap={
+    precise:'conceptual precision: every key term operationalized and consistently applied',
+    argument:'strong argumentative architecture: claim → evidence → inference per paragraph',
+    varied:'sentence structure variation (8–14 word declaratives + 28–42 word subordinate)',
+    scholarly:'authoritative scholarly register addressing a peer audience'
+};
+const sectionInstructions={
+    abstract:'\n## ABSTRACT (200–250 words)\nBegin with the research problem. Cover: gap, mixed-methods design ({METHOD}), quantitative strand (sample, analysis) and qualitative strand (participants, analysis), integration point, key finding from each strand and the integrated inference, contribution to {FIELD}.',
+    intro:'\n## INTRODUCTION (600–900 words)\nOpen with the phenomenon. Then: problem → why a mixed design is necessary (what neither strand alone can answer) → research questions (QUAN and QUAL) → preview of integration logic. No lists.',
+    litrev:'\n## LITERATURE REVIEW\nThematically organized. Each theme: analytical claim, synthesize studies, transitional inference. End with the gap and justification for the mixed design.',
+    theory:'\n## THEORETICAL FRAMEWORK{THEORY_NOTE}\n(a) conceptual logic linking {IV} to the phenomenon, (b) how the framework informs both strands, (c) hypotheses (QUAN) and sensitizing concepts (QUAL).',
+    method:'\n## METHODOLOGY\nDesign: {METHOD}. Cover both strands explicitly: \n(a) QUANTITATIVE: sampling, N, measures, analytical procedure using {SOFT_QUANT}. \n(b) QUALITATIVE: sampling, participants, data collection, coding using {SOFT_QUAL}. \n(c) INTEGRATION: Explain the point of interface, how the strands are mixed (merging, connecting, or embedding), and how meta-inferences will be drawn. \nAddress legitimation (quant validity + qual trustworthiness + integration quality).',
+    results:'\n## RESULTS\nPresent in three linked subsections: \n(a) QUAN results — lead with finding, report statistic, interpret. \n(b) QUAL findings — themes and illustrative quotes. \n(c) INTEGRATION — joint display table or narrative showing convergence/divergence/complementarity. Do NOT treat the strands as unrelated.',
+    discussion:'\n## DISCUSSION\n(a) Interpret each strand against the framework. (b) Interpret the integrated meta-inferences — what the combination reveals that neither strand alone would. (c) Compare with prior mixed studies. (d) Theoretical contribution to {FIELD}.',
+    conclusion:'\n## CONCLUSION\nSynthesize the integrated argument. Contributions → limitations (both strands, integration quality) → future research. Do NOT begin "In conclusion."'
+};
+
+function generatePrompt() {
+    const field = document.getElementById('field').value;
+    const citation = document.getElementById('citation').value;
+    const phenom = document.getElementById('phenom').value || '[Phenomenon/Variables]';
+    const participants = document.getElementById('participants').value || '[Participants/Sample]';
+    const method = document.getElementById('method').value;
+    const hypo = document.getElementById('hypo').value || '[Research Question]';
+    const theory = document.getElementById('theory').value;
+    const lang = document.getElementById('lang').value;
+    const soft_quant = document.getElementById('soft_quant').value || 'standard statistical software';
+    const soft_qual = document.getElementById('soft_qual').value || 'standard qualitative software';
+
+    const sections = [...document.querySelectorAll('#sections .tag.on-blue')].map(t=>t.dataset.v);
+    const avoid = [...document.querySelectorAll('#avoid .tag.on-red')].map(t=>t.dataset.v);
+    const style = [...document.querySelectorAll('#style .tag.on-teal')].map(t=>t.dataset.v);
+
+    let sectText = '';
+    sections.forEach(s => {
+        if(sectionInstructions[s]) {
+            let t = sectionInstructions[s]
+                .replace(/{METHOD}/g, method)
+                .replace(/{FIELD}/g, field)
+                .replace(/{IV}/g, phenom)
+                .replace(/{SOFT_QUANT}/g, soft_quant)
+                .replace(/{SOFT_QUAL}/g, soft_qual)
+                .replace(/{THEORY_NOTE}/g, theory ? ' ('+theory+')' : '');
+            sectText += t;
+        }
+    });
+
+    const avoidList = avoid.map(a=>avoidMap[a]).filter(Boolean).map(x=>'  • '+x).join('\n');
+    const styleList = style.map(s=>styleMap[s]).filter(Boolean).map(x=>'  • '+x).join('\n');
+
+    const prompt = `SYSTEM ROLE
+You are a senior academic author and methodologist with 20+ years of experience in conducting and publishing Mixed Methods research in top-tier Q1 journals in ${field}.
+
+ARTICLE SPECIFICATIONS
+Design: ${method}
+Field: ${field}
+Phenomenon / Variables: ${phenom}
+Participants / Sample: ${participants}
+Research question: ${hypo}${theory ? '\nTheoretical Framework: '+theory : ''}
+Quantitative Software: ${soft_quant}
+Qualitative Software: ${soft_qual}
+Citation style: ${citation}
+Language: ${lang}
+
+ABSOLUTE PROHIBITIONS
+${avoidList || '  • Standard academic prohibitions apply'}
+
+REQUIRED STYLISTIC QUALITIES
+${styleList || '  • Standard scholarly quality applies'}
+
+SECTIONS TO PRODUCE${sectText || '\n\nProduce a complete mixed methods journal article.'}
+
+OUTPUT FORMAT
+- Section headers: bold, sentence case, no numbering.
+- Placeholder statistics: [β = X.XX, SE = X.XX, p < 0.0X]
+- Participant quotes in quotation marks with codes (e.g., P01).
+- Placeholder citations: (Author, Year)
+- Begin immediately with content.`;
+
+    document.getElementById('resultText').textContent = prompt;
+    document.getElementById('outputBox').style.display = 'block';
+}
+
+function copyPrompt() {
+    const text = document.getElementById('resultText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'تم النسخ ✓';
+        setTimeout(() => btn.textContent = 'نسخ', 2000);
+    });
+}
+</script>
+
+</body>
+</html>
