@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مهندس البرومبت: إعادة الصياغة الأكاديمية</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+header{text-align:center;margin-bottom:2rem}
+h1{font-size:26px;color:#B45309;margin-bottom:0.5rem}
+p.subtitle{color:#64748b;font-size:15px}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.04);padding:2rem;margin-bottom:1.5rem;border:1px solid #e2e8f0}
+.section-title{font-size:16px;font-weight:700;color:#B45309;margin-bottom:1rem;border-bottom:2px solid #FEF3C7;padding-bottom:0.5rem}
+.form-group{margin-bottom:1.2rem}
+label{display:block;font-size:14px;font-weight:600;color:#334155;margin-bottom:6px}
+input[type=text], select, textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:all 0.2s}
+input[type=text]:focus, select:focus, textarea:focus{border-color:#B45309;box-shadow:0 0 0 3px rgba(180,83,9,0.1)}
+textarea{resize:vertical;min-height:150px;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+.btn{width:100%;padding:14px;background:#B45309;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s;margin-top:1rem}
+.btn:hover{background:#92400E}
+.output-box{margin-top:2rem;display:none}
+.output-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.output-title{font-weight:bold;color:#B45309}
+.copy-btn{background:#FEF3C7;color:#B45309;border:1px solid #B45309;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold}
+.copy-btn:hover{background:#FDE68A}
+pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:600px;overflow-y:auto}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>إعادة الصياغة الأكاديمية (De-AI)</h1>
+    <p class="subtitle">تحويل النصوص الآلية إلى نصوص بشرية رصينة خالية من بصمة AI</p>
+  </header>
+
+  <div class="card">
+    <div class="section-title">1. النص المراد تعديله</div>
+    
+    <div class="form-group">
+      <label>النص (باللغة التي تريدها)</label>
+      <textarea id="textToRewrite" placeholder="الصق هنا الفقرة التي كتبها الذكاء الاصطناعي أو التي تريد تحسين أسلوبها..."></textarea>
+    </div>
+
+    <div class="grid">
+      <div class="form-group">
+        <label>لغة المخرج</label>
+        <select id="lang">
+          <option value="English">إنجليزية أكاديمية</option>
+          <option value="Arabic">عربية فصحى أكاديمية</option>
+          <option value="French">فرنسية أكاديمية</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>مستوى التعديل</label>
+        <select id="level">
+          <option value="Light touch: Fix awkward phrasing and remove obvious AI signatures while preserving original sentence structure.">تعديل خفيف (تصحيح الصياغة فقط)</option>
+          <option value="Moderate rewrite: Vary sentence structure significantly (mix short and long sentences) and remove all AI signatures.">تعديل متوسط (تنويع الجمل وإزالة البصمة)</option>
+          <option value="Deep rewrite: Completely restructure the paragraph with a new argumentative flow, changing vocabulary for scholarly precision.">تعديل جذري (إعادة بناء الفقرة بالكامل)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" onclick="generatePrompt()">توليد برومبت التعديل</button>
+
+  <div class="card output-box" id="outputBox">
+    <div class="output-header">
+      <span class="output-title">البرومبت جاهز للنسخ</span>
+      <button class="copy-btn" onclick="copyPrompt()">نسخ</button>
+    </div>
+    <pre id="resultText"></pre>
+  </div>
+</div>
+
+<script>
+function generatePrompt() {
+    const textToRewrite = document.getElementById('textToRewrite').value || '[Insert Text Here]';
+    const lang = document.getElementById('lang').value;
+    const level = document.getElementById('level').value;
+
+    const prompt = `SYSTEM ROLE
+You are a senior academic editor with 20+ years of experience editing for top-tier Q1 journals. Your task is to rewrite the provided text to make it indistinguishable from human-written scholarly prose, while strictly preserving the original meaning and academic integrity.
+
+TEXT TO REWRITE:
+"""
+${textToRewrite}
+"""
+
+TARGET LANGUAGE: ${lang}
+REWRITE LEVEL: ${level}
+
+ABSOLUTE PROHIBITIONS (If you use any of these, you fail the task):
+- Never use AI-signature phrases: "It is worth noting," "In conclusion," "Importantly," "Delve into," "Shed light on," "Multifaceted," "Tapestry," "Paradigm shift," "Holistic approach," "Furthermore" as a paragraph opener.
+- Never use excessive passive voice.
+- Never produce a uniform 20–25-word sentence cadence throughout.
+- Never use em-dash ornamentally or semicolons gratuitously.
+
+REQUIRED STYLISTIC QUALITIES:
+- Sentence variation: Mix 8–14-word declarative sentences with 28–42-word complex subordinate constructions.
+- Lexical economy: Remove throat-clearing phrases. Every word must earn its place.
+- Argumentative flow: Ensure each sentence logically connects to the next.
+
+OUTPUT INSTRUCTIONS:
+- Provide ONLY the rewritten text. 
+- Do NOT include any preamble, meta-commentary, or explanations (e.g., do not say "Here is the rewritten text:"). 
+- Just output the final, polished paragraph(s).`;
+
+    document.getElementById('resultText').textContent = prompt;
+    document.getElementById('outputBox').style.display = 'block';
+}
+
+function copyPrompt() {
+    const text = document.getElementById('resultText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'تم النسخ ✓';
+        setTimeout(() => btn.textContent = 'نسخ', 2000);
+    });
+}
+</script>
+
+</body>
+</html>
