@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مهندس البرومبت الأكاديمي: المختلط الخارق</title>
+<title>مهندس البرومبت الأكاديمي: المختلط (النسخة الكاملة)</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
@@ -37,7 +37,7 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
 <div class="container">
   <header>
     <h1>مهندس البرومبت الأكاديمي: المنهج المختلط</h1>
-    <p class="subtitle">توليد برومبت خارق (Master Prompt) للدراسات المختلطة (Q1)</p>
+    <p class="subtitle">النسخة الكاملة (جميع التصاميم والخيارات + المزايا الخارقة)</p>
   </header>
 
   <div class="card">
@@ -49,6 +49,7 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
           <option value="Political Science">العلوم السياسية</option>
           <option value="Public Administration">الإدارة العامة</option>
           <option value="International Relations">العلاقات الدولية</option>
+          <option value="Public Policy">السياسات العامة</option>
           <option value="Sociology">علم الاجتماع</option>
         </select>
       </div>
@@ -56,49 +57,64 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
         <label>نمط الاستشهاد</label>
         <select id="citation">
           <option value="APA 7th edition">APA 7th</option>
-          <option value="Chicago Author-Date">Chicago</option>
+          <option value="Chicago Author-Date">Chicago Author-Date</option>
           <option value="Harvard">Harvard</option>
         </select>
       </div>
     </div>
 
-    <div class="grid-3">
+    <div class="grid">
       <div class="form-group">
         <label>الظاهرة / المتغيرات</label>
-        <input type="text" id="phenom" placeholder="مثال: أثر اللامركزية">
+        <input type="text" id="phenom" placeholder="مثال: أثر اللامركزية على الرضا">
       </div>
       <div class="form-group">
-        <label>المشاركون / العينة</label>
-        <input type="text" id="participants" placeholder="مثال: 300 استبيان + 20 مقابلة">
-      </div>
-      <div class="form-group">
-        <label>برامج التحليل (كمي + نوعي)</label>
-        <input type="text" id="software" placeholder="مثال: SPSS + NVivo">
+        <label>المشاركون / العينة والسياق</label>
+        <input type="text" id="participants" placeholder="مثال: 300 استبيان + 20 مقابلة، تونس">
       </div>
     </div>
 
     <div class="form-group">
-      <label>السؤال البحثي</label>
+      <label>الفرضية أو السؤال البحثي</label>
       <textarea id="hypo" placeholder="اكتب سؤالك البحثي..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>الإطار النظري (اختياري)</label>
+      <input type="text" id="theory" placeholder="مثال: Principal-Agent Theory">
     </div>
   </div>
 
   <div class="card">
-    <div class="section-title">2. التصميم المنهجي</div>
+    <div class="section-title">2. التصميم المنهجي (كل الخيارات)</div>
+    <div class="form-group">
+      <label>نوع التصميم المختلط</label>
+      <select id="method">
+        <option value="Exploratory Sequential Design (QUAL → quan)">استكشافي متسلسل (QUAL → QUAN)</option>
+        <option value="Explanatory Sequential Design (QUAN → qual)">تفسيري متسلسل (QUAN → QUAL)</option>
+        <option value="Convergent Parallel Design (QUAN + QUAL)">متوازي متقارب (QUAN + QUAL)</option>
+        <option value="Embedded Design">تصميم مدمج (Embedded)</option>
+        <option value="Transformative Design">تصميم تحويلي (Transformative)</option>
+        <option value="Multiphase Mixed Methods">متعدد المراحل (Multiphase)</option>
+      </select>
+    </div>
+    
     <div class="grid">
       <div class="form-group">
-        <label>نوع التصميم المختلط</label>
-        <select id="method">
-          <option value="Exploratory Sequential Design (QUAL → quan)">استكشافي متسلسل (QUAL → QUAN)</option>
-          <option value="Explanatory Sequential Design (QUAN → qual)">تفسيري متسلسل (QUAN → QUAL)</option>
-          <option value="Convergent Parallel Design (QUAN + QUAL)">متوازي متقارب (QUAN + QUAL)</option>
-          <option value="Embedded Design">تصميم مدمج (Embedded)</option>
-        </select>
+        <label>برامج التحليل الكمي (QUAN)</label>
+        <input type="text" id="soft_quant" placeholder="مثال: SPSS, R, Stata">
       </div>
+      <div class="form-group">
+        <label>برامج التحليل النوعي (QUAL)</label>
+        <input type="text" id="soft_qual" placeholder="مثال: NVivo, MAXQDA">
+      </div>
+    </div>
+
+    <div class="grid">
       <div class="form-group">
         <label>لغة المخرج</label>
         <select id="lang">
           <option value="English">إنجليزية أكاديمية</option>
+          <option value="French">فرنسية أكاديمية</option>
           <option value="Arabic">عربية فصحى</option>
         </select>
       </div>
@@ -120,11 +136,13 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
 document.getElementById('generateBtn').addEventListener('click', function() {
     const field = document.getElementById('field').value;
     const citation = document.getElementById('citation').value;
-    const phenom = document.getElementById('phenom').value || '[Phenomenon]';
+    const phenom = document.getElementById('phenom').value || '[Phenomenon/Variables]';
     const participants = document.getElementById('participants').value || '[Participants/Sample]';
-    const software = document.getElementById('software').value || '[SPSS + NVivo]';
-    const method = document.getElementById('method').value;
     const hypo = document.getElementById('hypo').value || '[Research Question]';
+    const theory = document.getElementById('theory').value;
+    const method = document.getElementById('method').value;
+    const soft_quant = document.getElementById('soft_quant').value || '[Quantitative Software]';
+    const soft_qual = document.getElementById('soft_qual').value || '[Qualitative Software]';
     const lang = document.getElementById('lang').value;
 
     const prompt = `=====================================================================
@@ -133,8 +151,8 @@ IDENTITY & EXPERTISE
 You are a Senior Mixed-Methods Researcher and published academic scholar with 15+ years of experience in ${field}. You have an extensive publication record in Q1-indexed journals and deep expertise in integrating quantitative and qualitative paradigms.
 
 You master the following mixed-methods designs and analytical software:
-- Designs: Exploratory Sequential, Explanatory Sequential, Convergent Parallel, Embedded.
-- Software: ${software}, including statistical packages (SPSS, R) and qualitative analysis (NVivo, MAXQDA).
+- Designs: ${method}.
+- Software: ${soft_quant} (Quantitative), ${soft_qual} (Qualitative).
 
 =====================================================================
 HUMAN AUTHENTICITY & STYLE CONSTRAINTS (ZERO TOLERANCE)
@@ -142,7 +160,7 @@ HUMAN AUTHENTICITY & STYLE CONSTRAINTS (ZERO TOLERANCE)
 To ensure the output is indistinguishable from human scholarly writing and passes AI-detection, you MUST strictly adhere to the following:
 
 1. RHYTHM & CADENCE: 
-   - Never produce a uniform sentence length (e.g., avoid a predictable 20-25 word flow).
+   - Never produce a uniform sentence length.
    - Use "Syncopated Cadence": Alternate deliberately between very short, punchy declarative sentences (6–10 words) and long, complex subordinate clauses (30–45 words).
    - Avoid starting consecutive sentences or paragraphs with the same grammatical structure.
 
@@ -166,49 +184,38 @@ Your task is to co-author a complete, publication-ready mixed-methods research a
 STOP after each phase and WAIT for my explicit approval before proceeding.
 
 --- PHASE 1 — LITERATURE REVIEW & MIXED-METHODS GAP: ---
-1. Synthesize 12–18 relevant studies (quantitative, qualitative, and mixed). Critically analyze: methodological gaps, conflicting findings, and missing integration between numbers and narratives.
-2. Identify a SPECIFIC, EMPIRICALLY GROUNDED RESEARCH GAP that justifies the use of a mixed-methods design (i.e., what can neither QUAN nor QUAL alone answer?).
+1. Synthesize 12–18 relevant studies (quantitative, qualitative, and mixed). Critically analyze: methodological gaps, conflicting findings, and missing integration.
+2. Identify a SPECIFIC, EMPIRICALLY GROUNDED RESEARCH GAP that justifies the use of a mixed-methods design.
 3. Formulate a PRECISE RESEARCH QUESTION and 2–4 hypotheses (for QUAN) / sensitizing concepts (for QUAL).
 
 --- PHASE 2 — RESEARCH DESIGN & INTEGRATION STRATEGY: ---
 1. Define and operationalize the phenomenon (${phenom}) and sample (${participants}).
-2. Specify the MIXED-METHODS DESIGN (${method}): Explain why this design is epistemologically and practically appropriate.
-3. Specify the INTEGRATION STRATEGY:
-   - Where do the two strands interface? (e.g., building, merging, embedding).
-   - How will meta-inferences be drawn?
-   - What is the legitimation strategy (quant validity + qual trustworthiness + integration quality)?
-4. Detail the Data Collection & Analysis for BOTH strands:
-   - QUANT: Sampling, N, measures, statistical tests (software).
-   - QUAL: Sampling, participants, coding phases (software).
-   - Trustworthiness & Reflexivity.
+2. Specify the MIXED-METHODS DESIGN (${method}).
+3. Specify the INTEGRATION STRATEGY: Interface, meta-inferences, and legitimation.
+4. Detail Data Collection & Analysis: QUAN (${soft_quant}) and QUAL (${soft_qual}).
 
 --- PHASE 3 — FULL ARTICLE DRAFTING: ---
 [^1] ABSTRACT (250–300 words)
 - Structure: Background | Objective | Mixed-Methods Design | QUAN Results | QUAL Findings | Integrated Inference | Keywords.
-- Do NOT start with "This paper".
 
 [^2] INTRODUCTION (700–900 words)
 - Hook: A substantive empirical puzzle.
-- State the gap explicitly and explain WHY a mixed design is necessary.
-- State research questions and roadmap.
+- State the gap and explain WHY a mixed design is necessary.
 
 [^3] THEORETICAL FRAMEWORK & LITERATURE REVIEW (1,200–1,800 words)
-- Thematic organization. Justify the theoretical model.
-- End with a statement of theoretical contribution.
+- Thematic organization. Justify the theoretical model${theory ? ' ('+theory+')' : ''}.
 
 [^4] METHODOLOGY (800–1,000 words)
-- Research Philosophy, Design, Sampling, Measurement, Integration Point, Legitimation, Ethics, Positionality.
+- Philosophy, Design, Sampling, Integration Point, Legitimation, Ethics, Positionality.
 
 [^5] RESULTS (1,200–1,800 words)
-- (a) QUANTITATIVE Results: Descriptive stats, hypothesis testing (β, SE, p-value, 95% CI).
-- (b) QUALITATIVE Findings: Themes and verbatim quotations (with participant codes e.g., P07).
-- (c) INTEGRATION: Joint display table or narrative showing convergence/divergence/complementarity. Do NOT treat the strands as unrelated.
+- (a) QUANTITATIVE Results. (b) QUALITATIVE Findings (themes and quotes). (c) INTEGRATION (joint display table or narrative).
 
 [^6] DISCUSSION (900–1,200 words)
-- Interpret QUAN and QUAL against the framework. Articulate integrated meta-inferences (what the combination reveals that neither alone would). Compare with prior studies.
+- Interpret QUAN and QUAL against the framework. Articulate integrated meta-inferences.
 
 [^7] CONCLUSION (350–500 words)
-- Synthesize the integrated argument. Contributions, limitations (both strands, integration quality), and specific future research directions.
+- Synthesize the integrated argument. Limitations, future research.
 
 [^8] REFERENCES
 - Minimum 35 sources. ${citation}.
