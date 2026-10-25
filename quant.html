@@ -3,30 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مهندس البرومبت الكمي (Quantitative)</title>
+<title>مهندس البرومبت الأكاديمي: الكمي</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f4f7f9;color:#1a1a1a;padding:2rem 1rem}
-.container{max-width:850px;margin:0 auto}
+body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
 header{text-align:center;margin-bottom:2rem}
-h1{font-size:24px;color:#0C447C;margin-bottom:0.5rem}
-p.subtitle{color:#5a5a5a;font-size:15px}
-.card{background:#fff;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.05);padding:2rem;margin-bottom:1.5rem}
+h1{font-size:26px;color:#185FA5;margin-bottom:0.5rem}
+p.subtitle{color:#64748b;font-size:15px}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.04);padding:2rem;margin-bottom:1.5rem;border:1px solid #e2e8f0}
+.section-title{font-size:16px;font-weight:700;color:#185FA5;margin-bottom:1rem;border-bottom:2px solid #E6F1FB;padding-bottom:0.5rem}
 .form-group{margin-bottom:1.2rem}
 label{display:block;font-size:14px;font-weight:600;color:#334155;margin-bottom:6px}
-input[type=text], select, textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:border-color 0.2s}
+input[type=text], select, textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:all 0.2s}
 input[type=text]:focus, select:focus, textarea:focus{border-color:#185FA5;box-shadow:0 0 0 3px rgba(24,95,165,0.1)}
 textarea{resize:vertical;min-height:80px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}
 @media(max-width:600px){.grid, .grid-3{grid-template-columns:1fr}}
+
 .btn{width:100%;padding:14px;background:#185FA5;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s;margin-top:1rem}
 .btn:hover{background:#0C447C}
-.output-box{margin-top:2rem;display:none}
+
+.output-box{margin-top:2rem;display:none;background:#fff;border-radius:12px;padding:2rem;border:1px solid #e2e8f0}
 .output-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .output-title{font-weight:bold;color:#0F6E56}
-.copy-btn{background:#E1F5EE;color:#085041;border:1px solid #0F6E56;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold}
-.copy-btn:hover{background:#c4eedf}
+.copy-btn{background:#E1F5EE;color:#085041;border:1px solid #0F6E56;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:14px;font-weight:bold}
 pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:500px;overflow-y:auto}
 </style>
 </head>
@@ -35,10 +37,11 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
 <div class="container">
   <header>
     <h1>مهندس البرومبت الأكاديمي: الكمي</h1>
-    <p class="subtitle">أداة توليد برومبت دقيق للدراسات الكمية ونشر المجلات Q1</p>
+    <p class="subtitle">توليد برومبت خارق (Master Prompt) للدراسات الكمية (Q1)</p>
   </header>
 
   <div class="card">
+    <div class="section-title">1. هوية المقال</div>
     <div class="grid">
       <div class="form-group">
         <label>الميدان المعرفي</label>
@@ -46,7 +49,6 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
           <option value="Political Science">العلوم السياسية</option>
           <option value="Public Administration">الإدارة العامة</option>
           <option value="International Relations">العلاقات الدولية</option>
-          <option value="Public Policy">السياسات العامة</option>
           <option value="Sociology">علم الاجتماع</option>
         </select>
       </div>
@@ -70,48 +72,51 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
         <input type="text" id="dv" placeholder="مثال: ثقة المواطنين">
       </div>
       <div class="form-group">
-        <label>السياق الجغرافي/الزمني</label>
-        <input type="text" id="geo" placeholder="مثال: دول MENA، 2000–2022">
+        <label>السياق الجغرافي</label>
+        <input type="text" id="geo" placeholder="مثال: دول MENA">
       </div>
     </div>
 
     <div class="form-group">
-      <label>نوع المنهج الكمي</label>
-      <select id="method">
-        <option value="multiple regression / OLS with robust standard errors">انحدار متعدد / OLS</option>
-        <option value="panel data — fixed and random effects (Hausman test)">بيانات لوحية (Panel Data)</option>
-        <option value="structural equation modeling (SEM/CFA)">نمذجة المعادلات البنيوية (SEM)</option>
-        <option value="logistic regression (odds ratios)">انحدار لوجستي</option>
-        <option value="difference-in-differences (DiD)">الفروق في الفروق (DiD)</option>
-        <option value="instrumental variables (2SLS)">متغيرات أداتية (IV)</option>
-      </select>
-    </div>
-
-    <div class="form-group">
       <label>الفرضية أو السؤال البحثي</label>
-      <textarea id="hypo" placeholder="مثال: هل تؤثر جودة الحوكمة على ثقة المواطنين في دول الشرق الأوسط؟"></textarea>
+      <textarea id="hypo" placeholder="اكتب سؤالك البحثي..."></textarea>
     </div>
-
-    <div class="form-group">
-      <label>الإطار النظري (اختياري)</label>
-      <input type="text" id="theory" placeholder="مثال: Principal-Agent Theory">
-    </div>
-
-    <button class="btn" onclick="generatePrompt()">توليد البرومبت الكمي</button>
   </div>
 
-  <div class="card output-box" id="outputBox">
+  <div class="card">
+    <div class="section-title">2. المنهجية واللغة</div>
+    <div class="grid">
+      <div class="form-group">
+        <label>نوع المنهج الكمي</label>
+        <select id="method">
+          <option value="multiple regression / OLS with robust standard errors">انحدار متعدد (OLS)</option>
+          <option value="panel data (Fixed/Random Effects)">بيانات لوحية (Panel)</option>
+          <option value="SEM (Structural Equation Modeling)">نمذجة المعادلات (SEM)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>لغة المخرج</label>
+        <select id="lang">
+          <option value="English">إنجليزية أكاديمية</option>
+          <option value="Arabic">عربية فصحى</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" id="generateBtn">توليد البرومبت الخارق</button>
+
+  <div class="output-box" id="outputBox">
     <div class="output-header">
       <span class="output-title">البرومبت جاهز للنسخ</span>
-      <button class="copy-btn" onclick="copyPrompt()">نسخ</button>
+      <button class="copy-btn" id="copyBtn">نسخ النص</button>
     </div>
     <pre id="resultText"></pre>
   </div>
 </div>
 
 <script>
-function generatePrompt() {
-    // جمع البيانات
+document.getElementById('generateBtn').addEventListener('click', function() {
     const field = document.getElementById('field').value;
     const citation = document.getElementById('citation').value;
     const iv = document.getElementById('iv').value || '[IV]';
@@ -119,79 +124,110 @@ function generatePrompt() {
     const geo = document.getElementById('geo').value || '[Context]';
     const method = document.getElementById('method').value;
     const hypo = document.getElementById('hypo').value || '[Research Question]';
-    const theory = document.getElementById('theory').value;
+    const lang = document.getElementById('lang').value;
 
-    // بناء النص
-    const prompt = `SYSTEM ROLE
-You are a senior academic author with 20+ years of peer-reviewed publishing in ${field}. You write with the analytical depth, rhetorical economy, and intellectual authority of a tenured professor. Your prose is indistinguishable from that of a human expert.
+    const prompt = `=====================================================================
+IDENTITY & EXPERTISE
+=====================================================================
+You are a Senior Quantitative Researcher and published academic scholar with 15+ years of experience in ${field}.
 
-ARTICLE SPECIFICATIONS
-Field: ${field}
-Quantitative method: ${method}
-Independent variable (IV): ${iv}
-Dependent variable (DV): ${dv}
-Scope: ${geo}
-Research question / hypothesis: ${hypo}${theory ? '\nTheoretical framework: ' + theory : ''}
-Citation style: ${citation}
-Writing language: English (formal academic, native-speaker register)
+You have published extensively in Q1-indexed journals (Web of Science / Scopus / SSCI) and are proficient in the following statistical software and methods currently required by top-tier peer reviewers:
+PRIMARY TOOLS: R / RStudio, Stata 19, IBM SPSS v29 + AMOS, Python, JASP, SmartPLS 4.
+ADVANCED METHODS: SEM (CB-SEM and PLS-SEM), Multilevel Modeling (HLM), Panel Data Analysis (Fixed/Random/GMM), DiD, IV Regression, Time-Series Cross-Sectional Analysis (TSCS), Mediation & Moderation Analysis, CFA.
 
-ABSOLUTE PROHIBITIONS
-- Never begin consecutive paragraphs with the same syntactic pattern.
-- Never use em-dash ornamentally or semicolons gratuitously.
-- Never produce uniform 20–25-word sentence cadence throughout.
-- Never start the abstract or introduction with "This paper" or "This study".
-- Never use "tapestry," "landscape," "groundbreaking," "pivotal".
+=====================================================================
+HUMAN AUTHENTICITY & STYLE CONSTRAINTS (ZERO TOLERANCE)
+=====================================================================
+To ensure the output is indistinguishable from human scholarly writing and passes AI-detection, you MUST strictly adhere to the following:
 
-REQUIRED STYLISTIC QUALITIES
-- Conceptual precision: every key term operationalized and consistently applied.
-- Strong argumentative architecture: claim → evidence → inference per paragraph.
-- Sentence structure variation (8–14 word declaratives + 28–42 word subordinate).
+1. RHYTHM & CADENCE: 
+   - Never produce a uniform sentence length (e.g., avoid a predictable 20-25 word flow).
+   - Use "Syncopated Cadence": Alternate deliberately between very short, punchy declarative sentences (6–10 words) and long, complex subordinate clauses (30–45 words) that contain multiple qualifiers.
+   - Avoid starting consecutive sentences or paragraphs with the same grammatical structure (e.g., do not start multiple paragraphs with "The results show...").
 
-SECTIONS TO PRODUCE
+2. BANNED PHRASES (AI Fingerprints):
+   - Never use: "In today's rapidly changing world", "This paper seeks to delve into", "It is important to note that", "Shedding light on", "This study aims to explore", "Holistic approach", "tapestry", "landscape of research".
+   - Never begin a sentence with: "In recent years...", "With the advent of...", "Furthermore,", "Moreover,", "Additionally,".
+   - Avoid hedging language unless it is statistically required: (e.g., do not use "might", "could possibly", "seems to suggest").
 
-## ABSTRACT (150–250 words)
-Begin with the research problem. Cover: gap, theory, method (${method}, ${geo}), key finding with statistic, contribution to ${field}.
+3. VOCABULARY & TONE:
+   - Maintain an authoritative, assertive, and analytical tone. You are an expert talking to peers, not a student explaining concepts.
+   - Use field-specific terminology precisely (define at first use, then use consistently).
+   - Do not use ornamental em-dashes (—) or gratuitous semicolons (;).
 
-## INTRODUCTION (600–900 words)
-Empirical hook → puzzle → debate → gap → research question → preview. No lists.
+4. STRUCTURAL PROHIBITIONS:
+   - Absolutely NO bullet points or numbered lists in the Results, Discussion, or Conclusion sections. All enumeration must be integrated into flowing prose.
+   - Never use meta-commentary (e.g., do not write "Here is the literature review").
 
-## LITERATURE REVIEW
-Thematically organized. Each theme: analytical claim, synthesize 3–6 studies, transitional inference. End with gap paragraph.
+=====================================================================
+MANDATORY PRE-WRITING PROTOCOL — DO NOT SKIP ANY PHASE
+=====================================================================
+Your task is to co-author a complete, publication-ready quantitative research article on: "${hypo}"
 
-## THEORETICAL FRAMEWORK
-(a) logic linking ${iv} to ${dv}, (b) causal mechanism, (c) hypotheses H1/H2, (d) confounders and identification.
+STOP after each phase and WAIT for my explicit approval before proceeding.
 
-## METHODOLOGY
-Design rationale → data source, N → variable operationalization → analytical procedure (${method}) → robustness (VIF, heteroskedasticity).
+--- PHASE 1 — LITERATURE REVIEW & QUANTITATIVE RESEARCH GAP: ---
+1. Synthesize 12–18 relevant quantitative studies. For each thematic cluster, critically analyze: statistical methods (and limitations), sample sizes, variables examined/ignored, conflicting findings.
+2. Identify a SPECIFIC, EMPIRICALLY GROUNDED RESEARCH GAP (What exact relationship has NOT been tested? Which variables were omitted?).
+3. Formulate a PRECISE RESEARCH QUESTION and 2–4 directional HYPOTHESES (H1, H2...) derived from theory.
 
-## RESULTS
-Lead each paragraph with the finding, then report statistic (β = X.XX, SE = X.XX, p < 0.0X, 95% CI [X.XX, X.XX]), then interpret magnitude. Refer to tables/figures.
+--- PHASE 2 — RESEARCH DESIGN & VARIABLE OPERATIONALIZATION: ---
+1. Define and operationalize ALL variables (IV: ${iv}, DV: ${dv}): Conceptual definition, Operational definition, Measurement scale, Data source.
+2. Specify the STATISTICAL METHOD (${method}): Why it is appropriate, software used, Sample size justification (G*Power), Assumptions testing (normality, VIF < 5).
+3. Specify DATA COLLECTION STRATEGY (${geo}): Primary or secondary? Sampling method. Reliability (Cronbach's α ≥ 0.70) and validity (AVE ≥ 0.50, HTMT < 0.85).
 
-## DISCUSSION
-Interpret findings against theory, compare with prior studies, address anomalies, state theoretical implication for ${field}.
+--- PHASE 3 — FULL ARTICLE DRAFTING: ---
+[^1] ABSTRACT (250–300 words)
+- Structure: Background | Objective | Method | Results | Conclusion | Keywords.
+- Include specific statistical values (e.g., β = 0.42, p < .001, R² = 0.58). Do NOT start with "This paper".
 
-## CONCLUSION
-Synthesize the argument. Contributions → limitations → future research. Do NOT begin "In conclusion."
+[^2] INTRODUCTION (700–900 words)
+- Hook: A substantive empirical puzzle or anomaly, NOT a broad declaration.
+- State the gap explicitly, the research question, and hypotheses.
+- End with a roadmap paragraph.
 
-OUTPUT FORMAT
-- Section headers: bold, sentence case, no numbering.
-- Placeholder statistics: [β = X.XX, SE = X.XX, p < 0.0X]
-- Placeholder citations: (Author, Year)
-- Begin immediately with content — no meta-commentary.`;
+[^3] THEORETICAL FRAMEWORK & LITERATURE REVIEW (1,200–1,800 words)
+- Thematic organization. Critically engage: compare effect sizes, model specifications.
+- Justify the theoretical model. End with a statement of theoretical contribution.
 
-    // عرض النتيجة
+[^4] METHODOLOGY (700–900 words)
+- Research Philosophy, Design, Sampling, Measurement, Statistical Procedure (step-by-step), Assumptions Testing.
+
+[^5] RESULTS (1,000–1,500 words)
+- (a) Descriptive Statistics (Table 1). (b) Reliability & Validity (Table 2). (c) Correlation Matrix. (d) Hypothesis Testing: Report β, SE, t/z/F, p-value, 95% CI, R², Cohen's f². (e) Mediation/Moderation (bootstrap CI). 
+- Reporting standard: ${citation}. Exact p-values (e.g., p = .023).
+
+[^6] DISCUSSION (900–1,200 words)
+- Interpret each finding against the hypothesis. Connect to prior studies. Explain non-significant findings (do not hide them). Theoretical contributions + Policy/practical implications.
+
+[^7] CONCLUSION (350–500 words)
+- Restate core findings (no new data). Honest methodological limitations. Specific future research directions. 
+
+[^8] REFERENCES
+- Minimum 35 sources (>70% from last 8 years). ${citation}.
+
+=====================================================================
+START NOW WITH PHASE 1 ONLY.
+Produce the critical quantitative literature review and derive the research gap. 
+STOP after Phase 1. Await my review and approval.
+=====================================================================
+Target Language: ${lang}`;
+
     document.getElementById('resultText').textContent = prompt;
     document.getElementById('outputBox').style.display = 'block';
-}
+    document.getElementById('outputBox').scrollIntoView({behavior: 'smooth'});
+});
 
-function copyPrompt() {
+document.getElementById('copyBtn').addEventListener('click', function() {
     const text = document.getElementById('resultText').textContent;
+    if (!text) return;
+    
     navigator.clipboard.writeText(text).then(() => {
-        const btn = document.querySelector('.copy-btn');
+        const btn = document.getElementById('copyBtn');
         btn.textContent = 'تم النسخ ✓';
-        setTimeout(() => btn.textContent = 'نسخ', 2000);
+        setTimeout(() => btn.textContent = 'نسخ النص', 2000);
     });
-}
+});
 </script>
 
 </body>
