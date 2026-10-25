@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مهندس البرومبت النوعي</title>
+<title>مهندس البرومبت الأكاديمي: النوعي الخارق</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
@@ -22,21 +22,14 @@ textarea{resize:vertical;min-height:80px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}
 @media(max-width:600px){.grid, .grid-3{grid-template-columns:1fr}}
 
-.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.tag{padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid #cbd5e1;color:#475569;background:#f8fafc;transition:all 0.2s;user-select:none}
-.tag:hover{border-color:#94a3b8}
-.tag.on-blue{background:#E6F1FB;border-color:#185FA5;color:#0C447C;font-weight:600}
-.tag.on-red{background:#FCEBEB;border-color:#A32D2D;color:#791F1F;font-weight:600}
-.tag.on-teal{background:#E1F5EE;border-color:#0F6E56;color:#085041;font-weight:600}
-
 .btn{width:100%;padding:14px;background:#0F6E56;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s;margin-top:1rem}
 .btn:hover{background:#085041}
-.output-box{margin-top:2rem;display:none}
+
+.output-box{margin-top:2rem;display:none;background:#fff;border-radius:12px;padding:2rem;border:1px solid #e2e8f0}
 .output-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .output-title{font-weight:bold;color:#0F6E56}
-.copy-btn{background:#E1F5EE;color:#085041;border:1px solid #0F6E56;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold}
-.copy-btn:hover{background:#c4eedf}
-pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:600px;overflow-y:auto}
+.copy-btn{background:#E1F5EE;color:#085041;border:1px solid #0F6E56;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:14px;font-weight:bold}
+pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:500px;overflow-y:auto}
 </style>
 </head>
 <body>
@@ -44,7 +37,7 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
 <div class="container">
   <header>
     <h1>مهندس البرومبت الأكاديمي: النوعي</h1>
-    <p class="subtitle">أداة متقدمة لتوليد برومبت الدراسات النوعية (Q1)</p>
+    <p class="subtitle">توليد برومبت خارق (Master Prompt) للدراسات النوعية (Q1)</p>
   </header>
 
   <div class="card">
@@ -56,39 +49,37 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
           <option value="Political Science">العلوم السياسية</option>
           <option value="Public Administration">الإدارة العامة</option>
           <option value="International Relations">العلاقات الدولية</option>
-          <option value="Public Policy">السياسات العامة</option>
           <option value="Sociology">علم الاجتماع</option>
-          <option value="Education">علوم التربية</option>
         </select>
       </div>
       <div class="form-group">
         <label>نمط الاستشهاد</label>
         <select id="citation">
           <option value="APA 7th edition">APA 7th</option>
-          <option value="Chicago Author-Date">Chicago Author-Date</option>
+          <option value="Chicago Author-Date">Chicago</option>
           <option value="Harvard">Harvard</option>
         </select>
       </div>
     </div>
 
-    <div class="grid">
+    <div class="grid-3">
       <div class="form-group">
-        <label>الظاهرة / المفهوم محل الاهتمام</label>
-        <input type="text" id="phenom" placeholder="مثال: تجربة المواطنين مع اللامركزية">
+        <label>الظاهرة / المفهوم</label>
+        <input type="text" id="phenom" placeholder="مثال: تجربة اللامركزية">
       </div>
       <div class="form-group">
-        <label>المشاركون والسياق</label>
-        <input type="text" id="participants" placeholder="مثال: 25 موظفًا بلديًا في تونس">
+        <label>المشاركون / السياق</label>
+        <input type="text" id="participants" placeholder="مثال: 25 موظفاً">
+      </div>
+      <div class="form-group">
+        <label>برنامج التحليل النوعي</label>
+        <input type="text" id="software" placeholder="مثال: NVivo, MAXQDA">
       </div>
     </div>
 
     <div class="form-group">
-      <label>الفرضية أو السؤال البحثي</label>
+      <label>السؤال البحثي</label>
       <textarea id="hypo" placeholder="اكتب سؤالك البحثي..."></textarea>
-    </div>
-    <div class="form-group">
-      <label>الإطار النظري / المفاهيم المحسسة (اختياري)</label>
-      <input type="text" id="theory" placeholder="مثال: Grounded Theory, Reflexivity">
     </div>
   </div>
 
@@ -101,164 +92,150 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
           <option value="phenomenology — in-depth interviews, Colaizzi/van Manen analysis, bracketing">الظواهرية (Phenomenology)</option>
           <option value="grounded theory — open/axial/selective coding, theoretical saturation">النظرية المجذرة (Grounded Theory)</option>
           <option value="multiple case study — replication logic, cross-case synthesis">دراسة الحالة (Case Study)</option>
-          <option value="ethnography — prolonged engagement, participant observation, field notes">الإثنوغرافيا (Ethnography)</option>
-          <option value="reflexive thematic analysis (Braun & Clarke) — six-phase coding">التحليل الموضوعي (Thematic Analysis)</option>
-          <option value="critical discourse analysis — Fairclough three-dimensional model">تحليل الخطاب النقدي (CDA)</option>
-          <option value="narrative inquiry — restorying, three-dimensional space">البحث السردي (Narrative)</option>
+          <option value="ethnography — prolonged engagement, participant observation">الإثنوغرافيا (Ethnography)</option>
+          <option value="reflexive thematic analysis (Braun & Clarke)">التحليل الموضوعي (Thematic)</option>
         </select>
       </div>
       <div class="form-group">
         <label>لغة المخرج</label>
         <select id="lang">
-          <option value="English (formal academic, native-speaker register)">إنجليزية أكاديمية</option>
-          <option value="French (registre académique)">فرنسية أكاديمية</option>
-          <option value="Modern Standard Arabic (عربية فصحى أكاديمية)">عربية فصحى</option>
+          <option value="English">إنجليزية أكاديمية</option>
+          <option value="Arabic">عربية فصحى</option>
         </select>
       </div>
     </div>
-    
-    <div class="form-group">
-        <label>الأقسام المطلوبة (انقر للتفعيل/الإلغاء)</label>
-        <div class="tag-cloud" id="sections">
-            <span class="tag on-blue" data-v="abstract">الملخص</span>
-            <span class="tag on-blue" data-v="intro">المقدمة</span>
-            <span class="tag on-blue" data-v="litrev">مراجعة الأدبيات</span>
-            <span class="tag on-blue" data-v="theory">الإطار النظري</span>
-            <span class="tag on-blue" data-v="method">المنهجية</span>
-            <span class="tag on-blue" data-v="results">النتائج (الموضوعات)</span>
-            <span class="tag on-blue" data-v="discussion">النقاش</span>
-            <span class="tag on-blue" data-v="conclusion">الخاتمة</span>
-        </div>
-    </div>
   </div>
 
-  <div class="card">
-    <div class="section-title">3. جودة الأسلوب</div>
-    <div class="form-group">
-      <label>محظورات صارمة</label>
-      <div class="tag-cloud" id="avoid">
-        <span class="tag on-red" data-v="ai_phrases">عبارات AI النمطية</span>
-        <span class="tag on-red" data-v="passive">مبني للمجهول مفرط</span>
-        <span class="tag on-red" data-v="lists">قوائم بدلاً من نثر</span>
-        <span class="tag on-red" data-v="vague">غموض غير مقصود</span>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>صفات مطلوبة</label>
-      <div class="tag-cloud" id="style">
-        <span class="tag on-teal" data-v="precise">دقة مفاهيمية</span>
-        <span class="tag on-teal" data-v="argument">بنية حجاجية متماسكة</span>
-        <span class="tag on-teal" data-v="varied">تنويع بنية الجمل</span>
-        <span class="tag on-teal" data-v="reflexive">انعكاسية (Reflexivity)</span>
-      </div>
-    </div>
-  </div>
+  <button class="btn" id="generateBtn">توليد البرومبت الخارق</button>
 
-  <button class="btn" onclick="generatePrompt()">توليد البرومبت النوعي</button>
-
-  <div class="card output-box" id="outputBox">
+  <div class="output-box" id="outputBox">
     <div class="output-header">
       <span class="output-title">البرومبت جاهز للنسخ</span>
-      <button class="copy-btn" onclick="copyPrompt()">نسخ</button>
+      <button class="copy-btn" id="copyBtn">نسخ النص</button>
     </div>
     <pre id="resultText"></pre>
   </div>
 </div>
 
 <script>
-document.querySelectorAll('#sections .tag').forEach(t=>t.addEventListener('click',()=>t.classList.toggle('on-blue')));
-document.querySelectorAll('#avoid .tag').forEach(t=>t.addEventListener('click',()=>t.classList.toggle('on-red')));
-document.querySelectorAll('#style .tag').forEach(t=>t.addEventListener('click',()=>t.classList.toggle('on-teal')));
-
-const avoidMap={
-    ai_phrases:'AI-signature phrases: "It is worth noting," "In conclusion," "Delve into," "Shed light on," "Tapestry"',
-    passive:'excessive passive voice',
-    lists:'bulleted/numbered lists — integrate as prose',
-    vague:'undefined abstract terms — operationalize at first use'
-};
-const styleMap={
-    precise:'conceptual precision: every key term operationalized and consistently applied',
-    argument:'strong argumentative architecture: claim → evidence → inference per paragraph',
-    varied:'sentence structure variation (8–14 word declaratives + 28–42 word subordinate)',
-    reflexive:'reflexivity: acknowledge researcher position, influence, and interpretive choices'
-};
-const sectionInstructions={
-    abstract:'\n## ABSTRACT (150–250 words)\nBegin with the phenomenon (NOT "This paper"). Cover: phenomenon and context, research question, methodological approach ({METHOD}), participants and sampling, key themes (2–3), contribution to {FIELD}.',
-    intro:'\n## INTRODUCTION (600–900 words)\nOpen with the lived phenomenon or a striking contextual detail. Then: problem → why it matters → what is known and what is missing → research question → brief preview of themes. No lists.',
-    litrev:'\n## LITERATURE REVIEW\nThematically organized. Each theme: analytical claim, synthesize 3–6 studies (noting method and sample), transitional inference. End with the gap and how the qualitative approach addresses it.',
-    theory:'\n## THEORETICAL & CONCEPTUAL FRAMEWORK{THEORY_NOTE}\nPresent sensitizing concepts (not testable hypotheses). Explain how the framework guides data collection and coding. State reflexivity position.',
-    method:'\n## METHODOLOGY\nDesign: {METHOD}. Cover: sampling strategy (purposive/theoretical), N and saturation, data collection, analytical procedure (coding phases), trustworthiness (credibility, transferability, dependability, confirmability), ethics, researcher positionality. Sufficient detail for audit trail.',
-    results:'\n## FINDINGS / RESULTS\nPresent 3–5 themes. For each theme: (a) name and define, (b) present illustrative verbatim quotations (with participant code e.g., P07), (c) interpret what the theme reveals. Do NOT report statistics.',
-    discussion:'\n## DISCUSSION\n(a) Interpret each theme against the conceptual framework. (b) Compare with 3–5 prior qualitative studies. (c) Address unexpected findings. (d) Articulate the theoretical contribution to {FIELD}.',
-    conclusion:'\n## CONCLUSION\nSynthesize the interpretive argument. Contributions → methodological limitations (sampling, transferability) → implications for practice. Do NOT begin "In conclusion."'
-};
-
-function generatePrompt() {
+document.getElementById('generateBtn').addEventListener('click', function() {
     const field = document.getElementById('field').value;
     const citation = document.getElementById('citation').value;
     const phenom = document.getElementById('phenom').value || '[Phenomenon]';
     const participants = document.getElementById('participants').value || '[Participants]';
+    const software = document.getElementById('software').value || '[Qualitative Software]';
     const method = document.getElementById('method').value;
     const hypo = document.getElementById('hypo').value || '[Research Question]';
-    const theory = document.getElementById('theory').value;
     const lang = document.getElementById('lang').value;
 
-    const sections = [...document.querySelectorAll('#sections .tag.on-blue')].map(t=>t.dataset.v);
-    const avoid = [...document.querySelectorAll('#avoid .tag.on-red')].map(t=>t.dataset.v);
-    const style = [...document.querySelectorAll('#style .tag.on-teal')].map(t=>t.dataset.v);
+    const prompt = `=====================================================================
+IDENTITY & EXPERTISE
+=====================================================================
+You are a Senior Qualitative Researcher and published academic scholar with 15+ years of experience in ${field}. You have an extensive publication record in Q1-indexed journals and deep familiarity with qualitative paradigms, peer-review standards, and the structural norms of top-tier journals.
 
-    let sectText = '';
-    sections.forEach(s => {
-        if(sectionInstructions[s]) {
-            let t = sectionInstructions[s]
-                .replace(/{METHOD}/g, method)
-                .replace(/{FIELD}/g, field)
-                .replace(/{THEORY_NOTE}/g, theory ? ' ('+theory+')' : '');
-            sectText += t;
-        }
-    });
+You master the following qualitative designs and analytical software:
+- Phenomenology, Grounded Theory, Case Study, Ethnography, Thematic Analysis, Discourse Analysis.
+- Qualitative Data Analysis Software (CAQDAS): ${software}, NVivo, MAXQDA, Atlas.ti.
 
-    const avoidList = avoid.map(a=>avoidMap[a]).filter(Boolean).map(x=>'  • '+x).join('\n');
-    const styleList = style.map(s=>styleMap[s]).filter(Boolean).map(x=>'  • '+x).join('\n');
+=====================================================================
+HUMAN AUTHENTICITY & STYLE CONSTRAINTS (ZERO TOLERANCE)
+=====================================================================
+To ensure the output is indistinguishable from human scholarly writing and passes AI-detection, you MUST strictly adhere to the following:
 
-    const prompt = `SYSTEM ROLE
-You are a senior qualitative academic author with 20+ years of peer-reviewed publishing in ${field}. You write with analytical depth and reflexivity.
+1. RHYTHM & CADENCE: 
+   - Never produce a uniform sentence length (e.g., avoid a predictable 20-25 word flow).
+   - Use "Syncopated Cadence": Alternate deliberately between very short, punchy declarative sentences (6–10 words) and long, complex subordinate clauses (30–45 words) that contain multiple qualifiers.
+   - Avoid starting consecutive sentences or paragraphs with the same grammatical structure (e.g., do not start multiple paragraphs with "The findings show...").
 
-ARTICLE SPECIFICATIONS
-Field: ${field}
-Qualitative Method: ${method}
-Phenomenon: ${phenom}
-Participants / Context: ${participants}
-Research question: ${hypo}${theory ? '\nConceptual Framework: '+theory : ''}
-Citation style: ${citation}
-Language: ${lang}
+2. BANNED PHRASES (AI Fingerprints):
+   - Never use: "In today's rapidly changing world", "This paper seeks to delve into", "It is important to note that", "Shedding light on", "This study aims to explore", "Holistic approach", "tapestry", "landscape of research".
+   - Never begin a sentence with: "In recent years...", "With the advent of...", "Furthermore,", "Moreover,", "Additionally,".
+   - Avoid hedging language unless it is academically required.
 
-ABSOLUTE PROHIBITIONS
-${avoidList || '  • Standard academic prohibitions apply'}
+3. VOCABULARY & TONE:
+   - Maintain an authoritative, reflexive, and interpretive tone. You are an expert talking to peers.
+   - Use field-specific terminology precisely (define at first use, then use consistently).
+   - Do not use ornamental em-dashes (—) or gratuitous semicolons (;).
 
-REQUIRED STYLISTIC QUALITIES
-${styleList || '  • Standard scholarly quality applies'}
+4. STRUCTURAL PROHIBITIONS:
+   - Absolutely NO bullet points or numbered lists in the Findings, Discussion, or Conclusion sections. All enumeration must be integrated into flowing prose.
+   - Never use meta-commentary.
 
-SECTIONS TO PRODUCE${sectText || '\n\nProduce a complete qualitative journal article.'}
+=====================================================================
+MANDATORY PRE-WRITING PROTOCOL — DO NOT SKIP ANY PHASE
+=====================================================================
+Your task is to co-author a complete, publication-ready qualitative research article on: "${hypo}"
 
-OUTPUT FORMAT
-- Section headers: bold, sentence case, no numbering.
-- Participant quotes in quotation marks with codes (e.g., P01).
-- Placeholder citations: (Author, Year)
-- Begin immediately with content.`;
+STOP after each phase and WAIT for my explicit approval before proceeding.
+
+--- PHASE 1 — LITERATURE REVIEW & QUALITATIVE GAP: ---
+1. Synthesize 12–18 relevant qualitative and mixed-methods studies on the topic. Critically analyze: methodological gaps (e.g., overreliance on single-case studies), geographical blind spots, and conceptual under-theorization.
+2. Identify a SPECIFIC, EMPIRICALLY GROUNDED RESEARCH GAP (What lived experience has NOT been explored? Which voices are missing?).
+3. Formulate a PRECISE RESEARCH QUESTION that addresses the gap.
+
+--- PHASE 2 — RESEARCH DESIGN & TRUSTWORTHINESS: ---
+1. Define and operationalize the phenomenon (${phenom}) and the participants (${participants}).
+2. Specify the QUALITATIVE METHODOLOGY (${method}): Explain why it is epistemologically appropriate.
+3. Specify DATA COLLECTION & ANALYSIS STRATEGY: 
+   - Sampling strategy (purposive/theoretical) and saturation.
+   - Data collection tools (interviews, observation).
+   - Coding phases and software (${software}).
+   - Trustworthiness strategy (Credibility, Transferability, Dependability, Confirmability).
+   - Researcher positionality and reflexivity.
+
+--- PHASE 3 — FULL ARTICLE DRAFTING: ---
+[^1] ABSTRACT (250–300 words)
+- Structure: Background | Objective | Method | Findings (Themes) | Conclusion | Keywords.
+- Do NOT start with "This paper".
+
+[^2] INTRODUCTION (700–900 words)
+- Hook: A striking contextual detail or a lived phenomenon.
+- State the gap explicitly, the research question.
+- End with a roadmap paragraph.
+
+[^3] THEORETICAL FRAMEWORK & LITERATURE REVIEW (1,200–1,800 words)
+- Thematic organization. Critically engage.
+- Present sensitizing concepts (not hypotheses).
+- End with a statement of theoretical contribution.
+
+[^4] METHODOLOGY (700–900 words)
+- Research Philosophy (Interpretivism/Constructivism), Design, Sampling, Data Collection, Analytical Procedure, Trustworthiness, Ethics, Positionality.
+
+[^5] FINDINGS / RESULTS (1,000–1,500 words)
+- Present 3–5 themes. For each theme: (a) name and define, (b) present illustrative verbatim quotations (with participant codes e.g., P07), (c) interpret what the theme reveals. 
+- Do NOT report statistics.
+
+[^6] DISCUSSION (900–1,200 words)
+- Interpret each theme against the framework. Compare with 3–5 prior studies. Address unexpected findings. Articulate theoretical contribution and practical implications.
+
+[^7] CONCLUSION (350–500 words)
+- Synthesize the interpretive argument. Theoretical contributions, honest limitations (transferability, sampling), and specific future research directions. 
+
+[^8] REFERENCES
+- Minimum 35 sources. ${citation}.
+
+=====================================================================
+START NOW WITH PHASE 1 ONLY.
+Produce the critical qualitative literature review and derive the research gap. 
+STOP after Phase 1. Await my review and approval.
+=====================================================================
+Target Language: ${lang}`;
 
     document.getElementById('resultText').textContent = prompt;
     document.getElementById('outputBox').style.display = 'block';
-}
+    document.getElementById('outputBox').scrollIntoView({behavior: 'smooth'});
+});
 
-function copyPrompt() {
+document.getElementById('copyBtn').addEventListener('click', function() {
     const text = document.getElementById('resultText').textContent;
+    if (!text) return;
+    
     navigator.clipboard.writeText(text).then(() => {
-        const btn = document.querySelector('.copy-btn');
+        const btn = document.getElementById('copyBtn');
         btn.textContent = 'تم النسخ ✓';
-        setTimeout(() => btn.textContent = 'نسخ', 2000);
+        setTimeout(() => btn.textContent = 'نسخ النص', 2000);
     });
-}
+});
 </script>
 
 </body>
