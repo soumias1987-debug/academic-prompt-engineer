@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مهندس البرومبت الأكاديمي: الكمي</title>
+<title>مهندس البرومبت الأكاديمي: الكمي (النسخة الكاملة)</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
@@ -37,7 +37,7 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
 <div class="container">
   <header>
     <h1>مهندس البرومبت الأكاديمي: الكمي</h1>
-    <p class="subtitle">توليد برومبت خارق (Master Prompt) للدراسات الكمية (Q1)</p>
+    <p class="subtitle">النسخة الكاملة (جميع الحقول والمناهج + المزايا الخارقة)</p>
   </header>
 
   <div class="card">
@@ -49,15 +49,17 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
           <option value="Political Science">العلوم السياسية</option>
           <option value="Public Administration">الإدارة العامة</option>
           <option value="International Relations">العلاقات الدولية</option>
-          <option value="Sociology">علم الاجتماع</option>
+          <option value="Public Policy">السياسات العامة</option>
+          <option value="Comparative Politics">السياسة المقارنة</option>
         </select>
       </div>
       <div class="form-group">
         <label>نمط الاستشهاد</label>
         <select id="citation">
           <option value="APA 7th edition">APA 7th</option>
-          <option value="Chicago Author-Date">Chicago</option>
+          <option value="Chicago Author-Date">Chicago Author-Date</option>
           <option value="Harvard">Harvard</option>
+          <option value="ASA">ASA</option>
         </select>
       </div>
     </div>
@@ -72,8 +74,8 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
         <input type="text" id="dv" placeholder="مثال: ثقة المواطنين">
       </div>
       <div class="form-group">
-        <label>السياق الجغرافي</label>
-        <input type="text" id="geo" placeholder="مثال: دول MENA">
+        <label>السياق الجغرافي/الزمني</label>
+        <input type="text" id="geo" placeholder="مثال: دول MENA، 2000–2022">
       </div>
     </div>
 
@@ -81,23 +83,34 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
       <label>الفرضية أو السؤال البحثي</label>
       <textarea id="hypo" placeholder="اكتب سؤالك البحثي..."></textarea>
     </div>
+    <div class="form-group">
+      <label>الإطار النظري (اختياري)</label>
+      <input type="text" id="theory" placeholder="مثال: Principal-Agent Theory">
+    </div>
   </div>
 
   <div class="card">
     <div class="section-title">2. المنهجية واللغة</div>
     <div class="grid">
       <div class="form-group">
-        <label>نوع المنهج الكمي</label>
+        <label>نوع الدراسة الكمية (كل الخيارات)</label>
         <select id="method">
-          <option value="multiple regression / OLS with robust standard errors">انحدار متعدد (OLS)</option>
-          <option value="panel data (Fixed/Random Effects)">بيانات لوحية (Panel)</option>
-          <option value="SEM (Structural Equation Modeling)">نمذجة المعادلات (SEM)</option>
+          <option value="multiple regression / OLS with heteroskedasticity-robust standard errors">انحدار متعدد / OLS</option>
+          <option value="panel data — fixed and random effects (Hausman test)">بيانات لوحية (Panel Data)</option>
+          <option value="survey-based SEM/CFA, Cronbach's alpha, AVE">مسح استبياني (SEM/CFA)</option>
+          <option value="time-series — ARIMA, Granger causality">سلاسل زمنية (ARIMA)</option>
+          <option value="mixed-methods (quantitative-dominant)">منهج مختلط</option>
+          <option value="systematic review and meta-analysis (PRISMA)">تحليل مرجعي (Meta-Analysis)</option>
+          <option value="binary/multinomial logistic regression">انحدار لوجستي</option>
+          <option value="difference-in-differences (DiD)">الفروق في الفروق (DiD)</option>
+          <option value="instrumental variables (2SLS)">متغيرات أداتية (IV)</option>
         </select>
       </div>
       <div class="form-group">
         <label>لغة المخرج</label>
         <select id="lang">
           <option value="English">إنجليزية أكاديمية</option>
+          <option value="French">فرنسية أكاديمية</option>
           <option value="Arabic">عربية فصحى</option>
         </select>
       </div>
@@ -122,8 +135,9 @@ document.getElementById('generateBtn').addEventListener('click', function() {
     const iv = document.getElementById('iv').value || '[IV]';
     const dv = document.getElementById('dv').value || '[DV]';
     const geo = document.getElementById('geo').value || '[Context]';
-    const method = document.getElementById('method').value;
     const hypo = document.getElementById('hypo').value || '[Research Question]';
+    const theory = document.getElementById('theory').value;
+    const method = document.getElementById('method').value;
     const lang = document.getElementById('lang').value;
 
     const prompt = `=====================================================================
@@ -143,21 +157,20 @@ To ensure the output is indistinguishable from human scholarly writing and passe
 1. RHYTHM & CADENCE: 
    - Never produce a uniform sentence length (e.g., avoid a predictable 20-25 word flow).
    - Use "Syncopated Cadence": Alternate deliberately between very short, punchy declarative sentences (6–10 words) and long, complex subordinate clauses (30–45 words) that contain multiple qualifiers.
-   - Avoid starting consecutive sentences or paragraphs with the same grammatical structure (e.g., do not start multiple paragraphs with "The results show...").
+   - Avoid starting consecutive sentences or paragraphs with the same grammatical structure.
 
 2. BANNED PHRASES (AI Fingerprints):
    - Never use: "In today's rapidly changing world", "This paper seeks to delve into", "It is important to note that", "Shedding light on", "This study aims to explore", "Holistic approach", "tapestry", "landscape of research".
    - Never begin a sentence with: "In recent years...", "With the advent of...", "Furthermore,", "Moreover,", "Additionally,".
-   - Avoid hedging language unless it is statistically required: (e.g., do not use "might", "could possibly", "seems to suggest").
 
 3. VOCABULARY & TONE:
-   - Maintain an authoritative, assertive, and analytical tone. You are an expert talking to peers, not a student explaining concepts.
-   - Use field-specific terminology precisely (define at first use, then use consistently).
+   - Maintain an authoritative, assertive, and analytical tone. You are an expert talking to peers.
+   - Use field-specific terminology precisely.
    - Do not use ornamental em-dashes (—) or gratuitous semicolons (;).
 
 4. STRUCTURAL PROHIBITIONS:
    - Absolutely NO bullet points or numbered lists in the Results, Discussion, or Conclusion sections. All enumeration must be integrated into flowing prose.
-   - Never use meta-commentary (e.g., do not write "Here is the literature review").
+   - Never use meta-commentary.
 
 =====================================================================
 MANDATORY PRE-WRITING PROTOCOL — DO NOT SKIP ANY PHASE
@@ -167,8 +180,8 @@ Your task is to co-author a complete, publication-ready quantitative research ar
 STOP after each phase and WAIT for my explicit approval before proceeding.
 
 --- PHASE 1 — LITERATURE REVIEW & QUANTITATIVE RESEARCH GAP: ---
-1. Synthesize 12–18 relevant quantitative studies. For each thematic cluster, critically analyze: statistical methods (and limitations), sample sizes, variables examined/ignored, conflicting findings.
-2. Identify a SPECIFIC, EMPIRICALLY GROUNDED RESEARCH GAP (What exact relationship has NOT been tested? Which variables were omitted?).
+1. Synthesize 12–18 relevant quantitative studies. Critically analyze: statistical methods, sample sizes, variables examined/ignored, conflicting findings.
+2. Identify a SPECIFIC, EMPIRICALLY GROUNDED RESEARCH GAP.
 3. Formulate a PRECISE RESEARCH QUESTION and 2–4 directional HYPOTHESES (H1, H2...) derived from theory.
 
 --- PHASE 2 — RESEARCH DESIGN & VARIABLE OPERATIONALIZATION: ---
@@ -182,29 +195,27 @@ STOP after each phase and WAIT for my explicit approval before proceeding.
 - Include specific statistical values (e.g., β = 0.42, p < .001, R² = 0.58). Do NOT start with "This paper".
 
 [^2] INTRODUCTION (700–900 words)
-- Hook: A substantive empirical puzzle or anomaly, NOT a broad declaration.
+- Hook: A substantive empirical puzzle.
 - State the gap explicitly, the research question, and hypotheses.
 - End with a roadmap paragraph.
 
 [^3] THEORETICAL FRAMEWORK & LITERATURE REVIEW (1,200–1,800 words)
-- Thematic organization. Critically engage: compare effect sizes, model specifications.
-- Justify the theoretical model. End with a statement of theoretical contribution.
+- Thematic organization. Justify the theoretical model${theory ? ' ('+theory+')' : ''}.
 
 [^4] METHODOLOGY (700–900 words)
-- Research Philosophy, Design, Sampling, Measurement, Statistical Procedure (step-by-step), Assumptions Testing.
+- Research Philosophy, Design, Sampling, Measurement, Statistical Procedure.
 
 [^5] RESULTS (1,000–1,500 words)
-- (a) Descriptive Statistics (Table 1). (b) Reliability & Validity (Table 2). (c) Correlation Matrix. (d) Hypothesis Testing: Report β, SE, t/z/F, p-value, 95% CI, R², Cohen's f². (e) Mediation/Moderation (bootstrap CI). 
-- Reporting standard: ${citation}. Exact p-values (e.g., p = .023).
+- (a) Descriptive Statistics. (b) Reliability & Validity. (c) Hypothesis Testing: Report β, SE, t/z/F, p-value, 95% CI, R², Cohen's f².
 
 [^6] DISCUSSION (900–1,200 words)
-- Interpret each finding against the hypothesis. Connect to prior studies. Explain non-significant findings (do not hide them). Theoretical contributions + Policy/practical implications.
+- Interpret findings against hypotheses. Compare with prior studies. Theoretical contributions + Policy implications.
 
 [^7] CONCLUSION (350–500 words)
-- Restate core findings (no new data). Honest methodological limitations. Specific future research directions. 
+- Restate core findings. Honest limitations. Future research directions.
 
 [^8] REFERENCES
-- Minimum 35 sources (>70% from last 8 years). ${citation}.
+- Minimum 35 sources. ${citation}.
 
 =====================================================================
 START NOW WITH PHASE 1 ONLY.
