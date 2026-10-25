@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مهندس البرومبت: الرد على المحكمين</title>
+<title>مهندس البرومبت الأكاديمي: الرد على المحكمين الخارق</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
@@ -23,12 +23,12 @@ textarea{resize:vertical;min-height:120px;line-height:1.6}
 
 .btn{width:100%;padding:14px;background:#0284C7;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s;margin-top:1rem}
 .btn:hover{background:#0369A1}
-.output-box{margin-top:2rem;display:none}
+
+.output-box{margin-top:2rem;display:none;background:#fff;border-radius:12px;padding:2rem;border:1px solid #e2e8f0}
 .output-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .output-title{font-weight:bold;color:#0284C7}
-.copy-btn{background:#E0F2FE;color:#0284C7;border:1px solid #0284C7;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold}
-.copy-btn:hover{background:#BAE6FD}
-pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:600px;overflow-y:auto}
+.copy-btn{background:#E0F2FE;color:#0284C7;border:1px solid #0284C7;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:14px;font-weight:bold}
+pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:500px;overflow-y:auto}
 </style>
 </head>
 <body>
@@ -36,7 +36,7 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
 <div class="container">
   <header>
     <h1>صانع الرد على المحكمين</h1>
-    <p class="subtitle">صياغة ردود أكاديمية مهذبة ومقنعة لملاحظات المراجعين (Q1)</p>
+    <p class="subtitle">صياغة ردود أكاديمية خارقة ومهذبة لملاحظات المراجعين (Q1)</p>
   </header>
 
   <div class="card">
@@ -44,7 +44,7 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
     
     <div class="form-group">
       <label>نص ملاحظة المحكم (Reviewer Comment)</label>
-      <textarea id="reviewerComment" placeholder="مثال: The authors failed to adequately address the issue of endogeneity in their regression model. Furthermore, the literature review is outdated and misses key works from 2022-2023."></textarea>
+      <textarea id="reviewerComment" placeholder="مثال: The authors failed to adequately address the issue of endogeneity in their regression model. Furthermore, the literature review is outdated..."></textarea>
     </div>
 
     <div class="grid">
@@ -72,26 +72,34 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
     </div>
   </div>
 
-  <button class="btn" onclick="generatePrompt()">توليد برومبت الرد</button>
+  <button class="btn" id="generateBtn">توليد برومبت الرد الخارق</button>
 
-  <div class="card output-box" id="outputBox">
+  <div class="output-box" id="outputBox">
     <div class="output-header">
       <span class="output-title">البرومبت جاهز للنسخ</span>
-      <button class="copy-btn" onclick="copyPrompt()">نسخ</button>
+      <button class="copy-btn" id="copyBtn">نسخ النص</button>
     </div>
     <pre id="resultText"></pre>
   </div>
 </div>
 
 <script>
-function generatePrompt() {
+document.getElementById('generateBtn').addEventListener('click', function() {
     const comment = document.getElementById('reviewerComment').value || '[Insert Reviewer Comment]';
     const action = document.getElementById('action').value;
     const lang = document.getElementById('lang').value;
     const myAction = document.getElementById('myAction').value || '[Explain what you changed in the manuscript]';
 
-    const prompt = `SYSTEM ROLE
-You are a senior academic author responding to peer-reviewer comments for a top-tier Q1 journal. Your tone must be highly professional, respectful, and scientifically rigorous.
+    const prompt = `=====================================================================
+IDENTITY & EXPERTISE
+=====================================================================
+You are a Senior Academic Editor and Lead Author with 20+ years of experience navigating the peer-review process for top-tier Q1 journals. You possess exceptional diplomatic skills, methodological rigor, and the ability to craft persuasive, evidence-based responses that satisfy reviewers without compromising the authors' scientific integrity.
+
+=====================================================================
+TASK SPECIFICATION
+=====================================================================
+Draft a formal "Response to Reviewer" letter based on the provided information.
+TARGET LANGUAGE: ${lang}
 
 REVIEWER COMMENT:
 """
@@ -101,30 +109,51 @@ ${comment}
 AUTHOR'S STANCE: ${action}
 AUTHOR'S ACTION TAKEN IN MANUSCRIPT: ${myAction}
 
-TARGET LANGUAGE: ${lang}
+=====================================================================
+HUMAN AUTHENTICITY & STYLE CONSTRAINTS (ZERO TOLERANCE)
+=====================================================================
 
-INSTRUCTIONS FOR GENERATING THE RESPONSE:
-1. Begin with a gracious acknowledgment of the reviewer's time and insight.
-2. Address the specific point raised directly. Do not evade the critique.
-3. If accepted: clearly state the exact changes made in the manuscript (e.g., "We have added a new paragraph in Section 4.2, page 15..."). Provide the revised text if applicable.
-4. If partially accepted/declined: respectfully explain the methodological or theoretical rationale for your current approach. Cite literature if necessary to support your stance. Offer a compromise if possible.
-5. Maintain a humble, scholarly tone. Never sound defensive or aggressive.
+1. RHYTHM & CADENCE: 
+   - Eliminate any uniform AI rhythm. Alternate between short, direct sentences (asserting a point) and long, complex sentences (explaining the rationale).
+   - Do NOT start consecutive sentences or paragraphs with the same structure.
 
-OUTPUT FORMAT:
-Provide ONLY the drafted response. Do not include meta-commentary (e.g., do not write "Here is a suggested response:"). Just start with "Response to Reviewer:" and write the text.`;
+2. BANNED PHRASES (AI Fingerprints — YOU MUST AVOID):
+   - Never use: "It is worth noting that", "In conclusion", "Importantly", "Delve into", "Shed light on", "Multifaceted", "Tapestry", "Paradigm shift", "Holistic approach", "Furthermore" (as a paragraph opener), "This paper aims to".
+   - Never use ornamental em-dashes (—) or gratuitous semicolons (;).
+
+3. TONE & DIPLOMACY:
+   - Maintain a highly professional, humble, yet authoritative tone. Never sound defensive or aggressive.
+   - Acknowledge the reviewer's insight graciously.
+   - If accepting the critique: clearly state the exact revisions made (e.g., "We have added a new paragraph in Section 4.2, page 15...").
+   - If partially accepting or respectfully declining: provide a rigorous, literature-backed justification. Cite specific methodological references to support your stance.
+   - Never use vague or evasive language. Be direct and specific.
+
+4. STRUCTURAL PROHIBITIONS:
+   - Do NOT use bullet points or numbered lists. Integrate the response into flowing, scholarly prose.
+   - Do NOT include meta-commentary (e.g., "Here is a suggested response:").
+
+=====================================================================
+OUTPUT FORMAT
+=====================================================================
+Provide ONLY the drafted response text. 
+Begin directly with: "Response to Reviewer:"
+Do not add any other preamble.`;
 
     document.getElementById('resultText').textContent = prompt;
     document.getElementById('outputBox').style.display = 'block';
-}
+    document.getElementById('outputBox').scrollIntoView({behavior: 'smooth'});
+});
 
-function copyPrompt() {
+document.getElementById('copyBtn').addEventListener('click', function() {
     const text = document.getElementById('resultText').textContent;
+    if (!text) return;
+    
     navigator.clipboard.writeText(text).then(() => {
-        const btn = document.querySelector('.copy-btn');
+        const btn = document.getElementById('copyBtn');
         btn.textContent = 'تم النسخ ✓';
-        setTimeout(() => btn.textContent = 'نسخ', 2000);
+        setTimeout(() => btn.textContent = 'نسخ النص', 2000);
     });
-}
+});
 </script>
 
 </body>
