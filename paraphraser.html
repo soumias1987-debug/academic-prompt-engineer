@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مهندس البرومبت: إعادة الصياغة الأكاديمية</title>
+<title>مهندس البرومبت الأكاديمي: إعادة الصياغة الخارقة</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
@@ -23,28 +23,27 @@ textarea{resize:vertical;min-height:150px;line-height:1.6}
 
 .btn{width:100%;padding:14px;background:#B45309;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s;margin-top:1rem}
 .btn:hover{background:#92400E}
-.output-box{margin-top:2rem;display:none}
+
+.output-box{margin-top:2rem;display:none;background:#fff;border-radius:12px;padding:2rem;border:1px solid #e2e8f0}
 .output-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .output-title{font-weight:bold;color:#B45309}
-.copy-btn{background:#FEF3C7;color:#B45309;border:1px solid #B45309;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold}
-.copy-btn:hover{background:#FDE68A}
-pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:600px;overflow-y:auto}
+.copy-btn{background:#FEF3C7;color:#B45309;border:1px solid #B45309;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:14px;font-weight:bold}
+pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;direction:ltr;text-align:left;max-height:500px;overflow-y:auto}
 </style>
 </head>
 <body>
 
 <div class="container">
   <header>
-    <h1>إعادة الصياغة الأكاديمية (De-AI)</h1>
-    <p class="subtitle">تحويل النصوص الآلية إلى نصوص بشرية رصينة خالية من بصمة AI</p>
+    <h1>إعادة الصياغة الأكاديمية الخارقة (De-AI)</h1>
+    <p class="subtitle">تحويل النصوص إلى أسلوب بشري رصين ومحصّن ضد كواشف الذكاء الاصطناعي</p>
   </header>
 
   <div class="card">
-    <div class="section-title">1. النص المراد تعديله</div>
-    
+    <div class="section-title">1. النص المستهدف</div>
     <div class="form-group">
-      <label>النص (باللغة التي تريدها)</label>
-      <textarea id="textToRewrite" placeholder="الصق هنا الفقرة التي كتبها الذكاء الاصطناعي أو التي تريد تحسين أسلوبها..."></textarea>
+      <label>الصق الفقرة هنا</label>
+      <textarea id="textToRewrite" placeholder="الصق هنا الفقرة التي تريد إعادة صياغتها..."></textarea>
     </div>
 
     <div class="grid">
@@ -57,72 +56,96 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
         </select>
       </div>
       <div class="form-group">
-        <label>مستوى التعديل</label>
+        <label>مستوى التعديل (عمق إعادة البناء)</label>
         <select id="level">
-          <option value="Light touch: Fix awkward phrasing and remove obvious AI signatures while preserving original sentence structure.">تعديل خفيف (تصحيح الصياغة فقط)</option>
-          <option value="Moderate rewrite: Vary sentence structure significantly (mix short and long sentences) and remove all AI signatures.">تعديل متوسط (تنويع الجمل وإزالة البصمة)</option>
-          <option value="Deep rewrite: Completely restructure the paragraph with a new argumentative flow, changing vocabulary for scholarly precision.">تعديل جذري (إعادة بناء الفقرة بالكامل)</option>
+          <option value="Light touch: Fix awkward phrasing and remove obvious AI signatures while preserving original sentence structure.">تعديل خفيف (تصحيح الصياغة)</option>
+          <option value="Moderate rewrite: Vary sentence structure significantly (mix short and long sentences) and remove all AI signatures.">تعديل متوسط (تنويع الجمل)</option>
+          <option value="Deep rewrite: Completely restructure the paragraph with a new argumentative flow, changing vocabulary for scholarly precision.">تعديل جذري (إعادة بناء الفقرة)</option>
         </select>
       </div>
     </div>
   </div>
 
-  <button class="btn" onclick="generatePrompt()">توليد برومبت التعديل</button>
+  <button class="btn" id="generateBtn">توليد برومبت إعادة الصياغة</button>
 
-  <div class="card output-box" id="outputBox">
+  <div class="output-box" id="outputBox">
     <div class="output-header">
       <span class="output-title">البرومبت جاهز للنسخ</span>
-      <button class="copy-btn" onclick="copyPrompt()">نسخ</button>
+      <button class="copy-btn" id="copyBtn">نسخ النص</button>
     </div>
     <pre id="resultText"></pre>
   </div>
 </div>
 
 <script>
-function generatePrompt() {
+document.getElementById('generateBtn').addEventListener('click', function() {
     const textToRewrite = document.getElementById('textToRewrite').value || '[Insert Text Here]';
     const lang = document.getElementById('lang').value;
     const level = document.getElementById('level').value;
 
-    const prompt = `SYSTEM ROLE
-You are a senior academic editor with 20+ years of experience editing for top-tier Q1 journals. Your task is to rewrite the provided text to make it indistinguishable from human-written scholarly prose, while strictly preserving the original meaning and academic integrity.
+    const prompt = `=====================================================================
+IDENTITY & EXPERTISE
+=====================================================================
+You are a Senior Academic Editor with 20+ years of experience editing for top-tier Q1 journals. You have an exceptional eye for detecting and eliminating AI-generated cadence, ensuring the prose is indistinguishable from human expert writing.
+
+=====================================================================
+TASK SPECIFICATION
+=====================================================================
+Rewrite the provided text to make it academically rigorous and free of AI signatures. 
+TARGET LANGUAGE: ${lang}
+REWRITE LEVEL: ${level}
 
 TEXT TO REWRITE:
 """
 ${textToRewrite}
 """
 
-TARGET LANGUAGE: ${lang}
-REWRITE LEVEL: ${level}
+=====================================================================
+HUMAN AUTHENTICITY & STYLE CONSTRAINTS (ZERO TOLERANCE)
+=====================================================================
 
-ABSOLUTE PROHIBITIONS (If you use any of these, you fail the task):
-- Never use AI-signature phrases: "It is worth noting," "In conclusion," "Importantly," "Delve into," "Shed light on," "Multifaceted," "Tapestry," "Paradigm shift," "Holistic approach," "Furthermore" as a paragraph opener.
-- Never use excessive passive voice.
-- Never produce a uniform 20–25-word sentence cadence throughout.
-- Never use em-dash ornamentally or semicolons gratuitously.
+1. RHYTHM & CADENCE (The "Syncopated" Rule):
+   - Eliminate the uniform AI rhythm. 
+   - Deliberately alternate between very short, punchy sentences (6–10 words) and long, complex subordinate clauses (30–45 words).
+   - Do NOT start consecutive sentences with the same grammatical structure (e.g., avoid "The results show... The data indicate...").
+   - Ensure the paragraph flows with a human-like, logical progression of ideas.
 
-REQUIRED STYLISTIC QUALITIES:
-- Sentence variation: Mix 8–14-word declarative sentences with 28–42-word complex subordinate constructions.
-- Lexical economy: Remove throat-clearing phrases. Every word must earn its place.
-- Argumentative flow: Ensure each sentence logically connects to the next.
+2. BANNED PHRASES (AI Fingerprints — YOU MUST AVOID):
+   - "It is worth noting that", "In conclusion", "Importantly", "Delve into", "Shed light on", "Multifaceted", "Tapestry", "Paradigm shift", "Holistic approach", "Furthermore" (as a paragraph opener), "This paper aims to", "In today's rapidly changing world", "With the advent of...", "It is crucial to".
+   - Never use ornamental em-dashes (—) or gratuitous semicolons (;).
 
-OUTPUT INSTRUCTIONS:
+3. VOCABULARY & TONE:
+   - Maintain a precise, authoritative, and analytical scholarly register.
+   - Replace generic AI verbs (e.g., "explore", "delve") with precise academic verbs (e.g., "examine", "interrogate", "elucidate").
+   - Ensure every concept is operationalized at first use (no vague abstractions).
+
+4. LEXICAL ECONOMY:
+   - Remove all throat-clearing phrases (e.g., "It is important to consider...").
+   - Every word must earn its place.
+
+=====================================================================
+OUTPUT INSTRUCTIONS
+=====================================================================
 - Provide ONLY the rewritten text. 
 - Do NOT include any preamble, meta-commentary, or explanations (e.g., do not say "Here is the rewritten text:"). 
-- Just output the final, polished paragraph(s).`;
+- Just output the final, polished paragraph(s).
+- Begin immediately with the first word of the text.`;
 
     document.getElementById('resultText').textContent = prompt;
     document.getElementById('outputBox').style.display = 'block';
-}
+    document.getElementById('outputBox').scrollIntoView({behavior: 'smooth'});
+});
 
-function copyPrompt() {
+document.getElementById('copyBtn').addEventListener('click', function() {
     const text = document.getElementById('resultText').textContent;
+    if (!text) return;
+    
     navigator.clipboard.writeText(text).then(() => {
-        const btn = document.querySelector('.copy-btn');
+        const btn = document.getElementById('copyBtn');
         btn.textContent = 'تم النسخ ✓';
-        setTimeout(() => btn.textContent = 'نسخ', 2000);
+        setTimeout(() => btn.textContent = 'نسخ النص', 2000);
     });
-}
+});
 </script>
 
 </body>
