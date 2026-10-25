@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مهندس البرومبت الأكاديمي: النوعي الخارق</title>
+<title>مهندس البرومبت الأكاديمي: النوعي (النسخة الكاملة)</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
@@ -37,7 +37,7 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
 <div class="container">
   <header>
     <h1>مهندس البرومبت الأكاديمي: النوعي</h1>
-    <p class="subtitle">توليد برومبت خارق (Master Prompt) للدراسات النوعية (Q1)</p>
+    <p class="subtitle">النسخة الكاملة (جميع الحقول والمناهج + المزايا الخارقة)</p>
   </header>
 
   <div class="card">
@@ -50,6 +50,7 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
           <option value="Public Administration">الإدارة العامة</option>
           <option value="International Relations">العلاقات الدولية</option>
           <option value="Sociology">علم الاجتماع</option>
+          <option value="Education">علوم التربية</option>
         </select>
       </div>
       <div class="form-group">
@@ -62,24 +63,24 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
       </div>
     </div>
 
-    <div class="grid-3">
+    <div class="grid">
       <div class="form-group">
-        <label>الظاهرة / المفهوم</label>
-        <input type="text" id="phenom" placeholder="مثال: تجربة اللامركزية">
+        <label>الظاهرة / المفهوم محل الاهتمام</label>
+        <input type="text" id="phenom" placeholder="مثال: تجربة المواطنين مع اللامركزية">
       </div>
       <div class="form-group">
-        <label>المشاركون / السياق</label>
-        <input type="text" id="participants" placeholder="مثال: 25 موظفاً">
-      </div>
-      <div class="form-group">
-        <label>برنامج التحليل النوعي</label>
-        <input type="text" id="software" placeholder="مثال: NVivo, MAXQDA">
+        <label>المشاركون والسياق</label>
+        <input type="text" id="participants" placeholder="مثال: 25 موظفًا بلديًا في تونس">
       </div>
     </div>
 
     <div class="form-group">
-      <label>السؤال البحثي</label>
+      <label>الفرضية أو السؤال البحثي</label>
       <textarea id="hypo" placeholder="اكتب سؤالك البحثي..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>الإطار النظري / المفاهيم المحسسة (اختياري)</label>
+      <input type="text" id="theory" placeholder="مثال: Grounded Theory, Reflexivity">
     </div>
   </div>
 
@@ -87,19 +88,22 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
     <div class="section-title">2. المنهجية واللغة</div>
     <div class="grid">
       <div class="form-group">
-        <label>نوع المنهج النوعي</label>
+        <label>نوع المنهج النوعي (كل الخيارات)</label>
         <select id="method">
           <option value="phenomenology — in-depth interviews, Colaizzi/van Manen analysis, bracketing">الظواهرية (Phenomenology)</option>
           <option value="grounded theory — open/axial/selective coding, theoretical saturation">النظرية المجذرة (Grounded Theory)</option>
           <option value="multiple case study — replication logic, cross-case synthesis">دراسة الحالة (Case Study)</option>
-          <option value="ethnography — prolonged engagement, participant observation">الإثنوغرافيا (Ethnography)</option>
-          <option value="reflexive thematic analysis (Braun & Clarke)">التحليل الموضوعي (Thematic)</option>
+          <option value="ethnography — prolonged engagement, participant observation, field notes">الإثنوغرافيا (Ethnography)</option>
+          <option value="reflexive thematic analysis (Braun & Clarke) — six-phase coding">التحليل الموضوعي (Thematic Analysis)</option>
+          <option value="critical discourse analysis — Fairclough three-dimensional model">تحليل الخطاب النقدي (CDA)</option>
+          <option value="narrative inquiry — restorying, three-dimensional space">البحث السردي (Narrative)</option>
         </select>
       </div>
       <div class="form-group">
         <label>لغة المخرج</label>
         <select id="lang">
           <option value="English">إنجليزية أكاديمية</option>
+          <option value="French">فرنسية أكاديمية</option>
           <option value="Arabic">عربية فصحى</option>
         </select>
       </div>
@@ -123,19 +127,19 @@ document.getElementById('generateBtn').addEventListener('click', function() {
     const citation = document.getElementById('citation').value;
     const phenom = document.getElementById('phenom').value || '[Phenomenon]';
     const participants = document.getElementById('participants').value || '[Participants]';
-    const software = document.getElementById('software').value || '[Qualitative Software]';
-    const method = document.getElementById('method').value;
     const hypo = document.getElementById('hypo').value || '[Research Question]';
+    const theory = document.getElementById('theory').value;
+    const method = document.getElementById('method').value;
     const lang = document.getElementById('lang').value;
 
     const prompt = `=====================================================================
 IDENTITY & EXPERTISE
 =====================================================================
-You are a Senior Qualitative Researcher and published academic scholar with 15+ years of experience in ${field}. You have an extensive publication record in Q1-indexed journals and deep familiarity with qualitative paradigms, peer-review standards, and the structural norms of top-tier journals.
+You are a Senior Qualitative Researcher and published academic scholar with 15+ years of experience in ${field}. You have an extensive publication record in Q1-indexed journals and deep familiarity with qualitative paradigms.
 
 You master the following qualitative designs and analytical software:
-- Phenomenology, Grounded Theory, Case Study, Ethnography, Thematic Analysis, Discourse Analysis.
-- Qualitative Data Analysis Software (CAQDAS): ${software}, NVivo, MAXQDA, Atlas.ti.
+- Designs: ${method}.
+- Qualitative Data Analysis Software (CAQDAS): NVivo, MAXQDA, Atlas.ti.
 
 =====================================================================
 HUMAN AUTHENTICITY & STYLE CONSTRAINTS (ZERO TOLERANCE)
@@ -143,23 +147,21 @@ HUMAN AUTHENTICITY & STYLE CONSTRAINTS (ZERO TOLERANCE)
 To ensure the output is indistinguishable from human scholarly writing and passes AI-detection, you MUST strictly adhere to the following:
 
 1. RHYTHM & CADENCE: 
-   - Never produce a uniform sentence length (e.g., avoid a predictable 20-25 word flow).
-   - Use "Syncopated Cadence": Alternate deliberately between very short, punchy declarative sentences (6–10 words) and long, complex subordinate clauses (30–45 words) that contain multiple qualifiers.
-   - Avoid starting consecutive sentences or paragraphs with the same grammatical structure (e.g., do not start multiple paragraphs with "The findings show...").
+   - Never produce a uniform sentence length.
+   - Use "Syncopated Cadence": Alternate deliberately between very short, punchy declarative sentences (6–10 words) and long, complex subordinate clauses (30–45 words).
+   - Avoid starting consecutive sentences or paragraphs with the same grammatical structure.
 
 2. BANNED PHRASES (AI Fingerprints):
    - Never use: "In today's rapidly changing world", "This paper seeks to delve into", "It is important to note that", "Shedding light on", "This study aims to explore", "Holistic approach", "tapestry", "landscape of research".
    - Never begin a sentence with: "In recent years...", "With the advent of...", "Furthermore,", "Moreover,", "Additionally,".
-   - Avoid hedging language unless it is academically required.
 
 3. VOCABULARY & TONE:
-   - Maintain an authoritative, reflexive, and interpretive tone. You are an expert talking to peers.
-   - Use field-specific terminology precisely (define at first use, then use consistently).
+   - Maintain an authoritative, reflexive, and interpretive tone.
+   - Use field-specific terminology precisely.
    - Do not use ornamental em-dashes (—) or gratuitous semicolons (;).
 
 4. STRUCTURAL PROHIBITIONS:
    - Absolutely NO bullet points or numbered lists in the Findings, Discussion, or Conclusion sections. All enumeration must be integrated into flowing prose.
-   - Never use meta-commentary.
 
 =====================================================================
 MANDATORY PRE-WRITING PROTOCOL — DO NOT SKIP ANY PHASE
@@ -169,19 +171,14 @@ Your task is to co-author a complete, publication-ready qualitative research art
 STOP after each phase and WAIT for my explicit approval before proceeding.
 
 --- PHASE 1 — LITERATURE REVIEW & QUALITATIVE GAP: ---
-1. Synthesize 12–18 relevant qualitative and mixed-methods studies on the topic. Critically analyze: methodological gaps (e.g., overreliance on single-case studies), geographical blind spots, and conceptual under-theorization.
-2. Identify a SPECIFIC, EMPIRICALLY GROUNDED RESEARCH GAP (What lived experience has NOT been explored? Which voices are missing?).
-3. Formulate a PRECISE RESEARCH QUESTION that addresses the gap.
+1. Synthesize 12–18 relevant qualitative studies. Critically analyze: methodological gaps, geographical blind spots, and conceptual under-theorization.
+2. Identify a SPECIFIC, EMPIRICALLY GROUNDED RESEARCH GAP.
+3. Formulate a PRECISE RESEARCH QUESTION.
 
 --- PHASE 2 — RESEARCH DESIGN & TRUSTWORTHINESS: ---
-1. Define and operationalize the phenomenon (${phenom}) and the participants (${participants}).
-2. Specify the QUALITATIVE METHODOLOGY (${method}): Explain why it is epistemologically appropriate.
-3. Specify DATA COLLECTION & ANALYSIS STRATEGY: 
-   - Sampling strategy (purposive/theoretical) and saturation.
-   - Data collection tools (interviews, observation).
-   - Coding phases and software (${software}).
-   - Trustworthiness strategy (Credibility, Transferability, Dependability, Confirmability).
-   - Researcher positionality and reflexivity.
+1. Define and operationalize the phenomenon (${phenom}) and participants (${participants}).
+2. Specify the QUALITATIVE METHODOLOGY (${method}).
+3. Specify TRUSTWORTHINESS STRATEGY: Credibility, Transferability, Dependability, Confirmability, and Researcher Positionality.
 
 --- PHASE 3 — FULL ARTICLE DRAFTING: ---
 [^1] ABSTRACT (250–300 words)
@@ -190,26 +187,22 @@ STOP after each phase and WAIT for my explicit approval before proceeding.
 
 [^2] INTRODUCTION (700–900 words)
 - Hook: A striking contextual detail or a lived phenomenon.
-- State the gap explicitly, the research question.
-- End with a roadmap paragraph.
+- State the gap, the research question, and roadmap.
 
 [^3] THEORETICAL FRAMEWORK & LITERATURE REVIEW (1,200–1,800 words)
-- Thematic organization. Critically engage.
-- Present sensitizing concepts (not hypotheses).
-- End with a statement of theoretical contribution.
+- Thematic organization. Present sensitizing concepts${theory ? ' ('+theory+')' : ''}.
 
 [^4] METHODOLOGY (700–900 words)
-- Research Philosophy (Interpretivism/Constructivism), Design, Sampling, Data Collection, Analytical Procedure, Trustworthiness, Ethics, Positionality.
+- Philosophy, Design, Sampling, Data Collection, Analysis, Trustworthiness, Ethics, Positionality.
 
 [^5] FINDINGS / RESULTS (1,000–1,500 words)
-- Present 3–5 themes. For each theme: (a) name and define, (b) present illustrative verbatim quotations (with participant codes e.g., P07), (c) interpret what the theme reveals. 
-- Do NOT report statistics.
+- Present 3–5 themes. For each theme: (a) name and define, (b) verbatim quotations (with codes e.g., P07), (c) interpret. Do NOT report statistics.
 
 [^6] DISCUSSION (900–1,200 words)
-- Interpret each theme against the framework. Compare with 3–5 prior studies. Address unexpected findings. Articulate theoretical contribution and practical implications.
+- Interpret each theme against the framework. Compare with prior studies.
 
 [^7] CONCLUSION (350–500 words)
-- Synthesize the interpretive argument. Theoretical contributions, honest limitations (transferability, sampling), and specific future research directions. 
+- Synthesize the argument. Contributions, limitations, future research.
 
 [^8] REFERENCES
 - Minimum 35 sources. ${citation}.
