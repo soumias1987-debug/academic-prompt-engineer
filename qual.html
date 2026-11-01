@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مهندس البرومبت الأكاديمي: النوعي (النسخة الشاملة)</title>
+<title>مهندس البرومبت الأكاديمي: النوعي (النسخة النهائية)</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
@@ -15,8 +15,8 @@ p.subtitle{color:#64748b;font-size:15px}
 .section-title{font-size:16px;font-weight:700;color:#0F6E56;margin-bottom:1rem;border-bottom:2px solid #E1F5EE;padding-bottom:0.5rem}
 .form-group{margin-bottom:1.2rem}
 label{display:block;font-size:14px;font-weight:600;color:#334155;margin-bottom:6px}
-input[type=text], textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:all 0.2s}
-input[type=text]:focus, textarea:focus{border-color:#0F6E56;box-shadow:0 0 0 3px rgba(15,110,86,0.1)}
+input[type=text], select, textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:all 0.2s}
+input[type=text]:focus, select:focus, textarea:focus{border-color:#0F6E56;box-shadow:0 0 0 3px rgba(15,110,86,0.1)}
 textarea{resize:vertical;min-height:80px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}
@@ -43,19 +43,29 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
 <div class="container">
   <header>
     <h1>مهندس البرومبت الأكاديمي: النوعي</h1>
-    <p class="subtitle">النسخة الشاملة (أزرار متعددة + النظرية + التحليل اليدوي)</p>
+    <p class="subtitle">النسخة النهائية (جميع القوائم والأزرار + المتغيرات)</p>
   </header>
 
   <div class="card">
-    <div class="section-title">1. هوية المقال والمتغيرات</div>
+    <div class="section-title">1. هوية المقال</div>
     <div class="grid">
       <div class="form-group">
         <label>الميدان المعرفي</label>
-        <input type="text" id="field" placeholder="مثال: العلوم السياسية / الإدارة العامة" value="Political Science">
+        <select id="field">
+          <option value="Political Science">العلوم السياسية</option>
+          <option value="Public Administration">الإدارة العامة</option>
+          <option value="International Relations">العلاقات الدولية</option>
+          <option value="Sociology">علم الاجتماع</option>
+          <option value="Education">علوم التربية</option>
+        </select>
       </div>
       <div class="form-group">
         <label>نمط الاستشهاد</label>
-        <input type="text" id="citation" placeholder="مثال: APA 7th" value="APA 7th edition">
+        <select id="citation">
+          <option value="APA 7th edition">APA 7th</option>
+          <option value="Chicago Author-Date">Chicago</option>
+          <option value="Harvard">Harvard</option>
+        </select>
       </div>
     </div>
 
@@ -81,8 +91,8 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
     </div>
 
     <div class="form-group">
-      <label>الإطار النظري</label>
-      <input type="text" id="theory" placeholder="مثال: Institutional Theory, Principal-Agent Theory">
+      <label>الإطار النظري (اختياري)</label>
+      <input type="text" id="theory" placeholder="مثال: Institutional Theory">
     </div>
 
     <div class="form-group">
@@ -111,7 +121,11 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
     <div class="section-title">3. اللغة</div>
     <div class="form-group">
       <label>لغة المخرج</label>
-      <input type="text" id="lang" placeholder="مثال: English / Arabic" value="English">
+      <select id="lang">
+        <option value="English">إنجليزية أكاديمية</option>
+        <option value="French">فرنسية أكاديمية</option>
+        <option value="Arabic">عربية فصحى</option>
+      </select>
     </div>
   </div>
 
@@ -133,15 +147,15 @@ document.querySelectorAll('#methods .tag').forEach(t => {
 });
 
 document.getElementById('generateBtn').addEventListener('click', function() {
-    const field = document.getElementById('field').value || '[Field]';
-    const citation = document.getElementById('citation').value || 'APA 7th';
+    const field = document.getElementById('field').value;
+    const citation = document.getElementById('citation').value;
     const iv = document.getElementById('iv').value || '[IV]';
     const dv = document.getElementById('dv').value || '[DV]';
     const phenom = document.getElementById('phenom').value || '[Phenomenon]';
     const participants = document.getElementById('participants').value || '[Participants]';
-    const theory = document.getElementById('theory').value || '[Theory]';
+    const theory = document.getElementById('theory').value;
     const hypo = document.getElementById('hypo').value || '[Research Question]';
-    const lang = document.getElementById('lang').value || 'English';
+    const lang = document.getElementById('lang').value;
 
     // جمع المناهج المختارة
     const selectedMethods = [...document.querySelectorAll('#methods .tag.on')].map(t => t.dataset.v);
@@ -212,7 +226,7 @@ STOP after each phase and WAIT for my explicit approval before proceeding.
 - State the gap, the research question, and roadmap.
 
 [^3] THEORETICAL FRAMEWORK & LITERATURE REVIEW (1,200–1,800 words)
-- Thematic organization. Present sensitizing concepts (${theory}).
+- Thematic organization. Present sensitizing concepts${theory ? ' ('+theory+')' : ''}.
 
 [^4] METHODOLOGY (800–1,000 words)
 - Philosophy, Design, Case Selection (if comparative), Data Collection, Analysis (${methodsText}), Trustworthiness, Ethics, Positionality.
