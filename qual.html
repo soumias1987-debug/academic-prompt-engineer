@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مهندس البرومبت الأكاديمي: النوعي (الشامل)</title>
+<title>مهندس البرومبت الأكاديمي: النوعي (النسخة الشاملة)</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;direction:rtl;background:#f8fafc;color:#1e293b;padding:2rem 1rem}
@@ -15,12 +15,18 @@ p.subtitle{color:#64748b;font-size:15px}
 .section-title{font-size:16px;font-weight:700;color:#0F6E56;margin-bottom:1rem;border-bottom:2px solid #E1F5EE;padding-bottom:0.5rem}
 .form-group{margin-bottom:1.2rem}
 label{display:block;font-size:14px;font-weight:600;color:#334155;margin-bottom:6px}
-input[type=text], select, textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:all 0.2s}
-input[type=text]:focus, select:focus, textarea:focus{border-color:#0F6E56;box-shadow:0 0 0 3px rgba(15,110,86,0.1)}
+input[type=text], textarea{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:all 0.2s}
+input[type=text]:focus, textarea:focus{border-color:#0F6E56;box-shadow:0 0 0 3px rgba(15,110,86,0.1)}
 textarea{resize:vertical;min-height:80px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}
 @media(max-width:600px){.grid, .grid-3{grid-template-columns:1fr}}
+
+/* أزرار المناهج المتعددة */
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tag{padding:8px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid #cbd5e1;color:#475569;background:#f8fafc;transition:all 0.2s;user-select:none}
+.tag:hover{border-color:#94a3b8}
+.tag.on{background:#E1F5EE;border-color:#0F6E56;color:#085041;font-weight:600}
 
 .btn{width:100%;padding:14px;background:#0F6E56;color:white;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s;margin-top:1rem}
 .btn:hover{background:#085041}
@@ -37,7 +43,7 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
 <div class="container">
   <header>
     <h1>مهندس البرومبت الأكاديمي: النوعي</h1>
-    <p class="subtitle">النسخة الشاملة (المتغيرات + المناهج المقارنة + تحليل الشبكات)</p>
+    <p class="subtitle">النسخة الشاملة (أزرار متعددة + النظرية + التحليل اليدوي)</p>
   </header>
 
   <div class="card">
@@ -45,19 +51,11 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
     <div class="grid">
       <div class="form-group">
         <label>الميدان المعرفي</label>
-        <select id="field">
-          <option value="Political Science">العلوم السياسية</option>
-          <option value="Public Administration">الإدارة العامة</option>
-          <option value="International Relations">العلاقات الدولية</option>
-          <option value="Sociology">علم الاجتماع</option>
-        </select>
+        <input type="text" id="field" placeholder="مثال: العلوم السياسية / الإدارة العامة" value="Political Science">
       </div>
       <div class="form-group">
         <label>نمط الاستشهاد</label>
-        <select id="citation">
-          <option value="APA 7th edition">APA 7th</option>
-          <option value="Chicago Author-Date">Chicago</option>
-        </select>
+        <input type="text" id="citation" placeholder="مثال: APA 7th" value="APA 7th edition">
       </div>
     </div>
 
@@ -83,35 +81,37 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
     </div>
 
     <div class="form-group">
+      <label>الإطار النظري</label>
+      <input type="text" id="theory" placeholder="مثال: Institutional Theory, Principal-Agent Theory">
+    </div>
+
+    <div class="form-group">
       <label>السؤال البحثي</label>
       <textarea id="hypo" placeholder="اكتب سؤالك البحثي..."></textarea>
     </div>
   </div>
 
   <div class="card">
-    <div class="section-title">2. المنهجية واللغة</div>
-    <div class="grid">
-      <div class="form-group">
-        <label>نوع المنهج النوعي (الشامل)</label>
-        <select id="method">
-          <option value="Qualitative Policy Analysis (Interpretive)">تحليل السياسات النوعي (Qualitative Policy Analysis)</option>
-          <option value="Process Tracing (Theory-testing / Theory-building)">تتبع العملية (Process Tracing)</option>
-          <option value="Comparative Case Study (MSSD / MDSD)">المنهج المقارن (Comparative - MSSD/MDSD)</option>
-          <option value="Social Network Analysis (SNA)">تحليل الشبكات (Social Network Analysis)</option>
-          <option value="Institutional Ethnography">الإثنوغرافيا المؤسسية (Institutional Ethnography)</option>
-          <option value="phenomenology — in-depth interviews, bracketing">الظواهرية (Phenomenology)</option>
-          <option value="grounded theory — open/axial/selective coding">النظرية المجذرة (Grounded Theory)</option>
-          <option value="critical discourse analysis — Fairclough model">تحليل الخطاب النقدي (CDA)</option>
-          <option value="narrative inquiry">البحث السردي (Narrative)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>لغة المخرج</label>
-        <select id="lang">
-          <option value="English">إنجليزية أكاديمية</option>
-          <option value="Arabic">عربية فصحى</option>
-        </select>
-      </div>
+    <div class="section-title">2. المناهج النوعية (انقر لاختيار أكثر من منهج)</div>
+    <div class="tag-cloud" id="methods">
+      <span class="tag" data-v="Qualitative Policy Analysis">تحليل السياسات النوعي</span>
+      <span class="tag" data-v="Process Tracing">تتبع العملية</span>
+      <span class="tag" data-v="Comparative Case Study (MSSD/MDSD)">المنهج المقارن</span>
+      <span class="tag" data-v="Qualitative Document Analysis (Manual)">تحليل وثائقي يدوي (بدون برامج)</span>
+      <span class="tag" data-v="Social Network Analysis (SNA)">تحليل الشبكات (SNA)</span>
+      <span class="tag" data-v="Institutional Ethnography">الإثنوغرافيا المؤسسية</span>
+      <span class="tag" data-v="Phenomenology">الظواهرية</span>
+      <span class="tag" data-v="Grounded Theory">النظرية المجذرة</span>
+      <span class="tag" data-v="Critical Discourse Analysis (CDA)">تحليل الخطاب النقدي</span>
+      <span class="tag" data-v="Narrative Inquiry">البحث السردي</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">3. اللغة</div>
+    <div class="form-group">
+      <label>لغة المخرج</label>
+      <input type="text" id="lang" placeholder="مثال: English / Arabic" value="English">
     </div>
   </div>
 
@@ -127,25 +127,38 @@ pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:8px;white-spac
 </div>
 
 <script>
+// تفعيل النقر على أزرار المناهج
+document.querySelectorAll('#methods .tag').forEach(t => {
+    t.addEventListener('click', () => t.classList.toggle('on'));
+});
+
 document.getElementById('generateBtn').addEventListener('click', function() {
-    const field = document.getElementById('field').value;
-    const citation = document.getElementById('citation').value;
-    const iv = document.getElementById('iv').value || '[Independent Variable/Explanatory Factor]';
-    const dv = document.getElementById('dv').value || '[Dependent Variable/Outcome]';
+    const field = document.getElementById('field').value || '[Field]';
+    const citation = document.getElementById('citation').value || 'APA 7th';
+    const iv = document.getElementById('iv').value || '[IV]';
+    const dv = document.getElementById('dv').value || '[DV]';
     const phenom = document.getElementById('phenom').value || '[Phenomenon]';
     const participants = document.getElementById('participants').value || '[Participants]';
+    const theory = document.getElementById('theory').value || '[Theory]';
     const hypo = document.getElementById('hypo').value || '[Research Question]';
-    const method = document.getElementById('method').value;
-    const lang = document.getElementById('lang').value;
+    const lang = document.getElementById('lang').value || 'English';
+
+    // جمع المناهج المختارة
+    const selectedMethods = [...document.querySelectorAll('#methods .tag.on')].map(t => t.dataset.v);
+    const methodsText = selectedMethods.length > 0 ? selectedMethods.join(' + ') : '[Qualitative Method]';
+
+    // نص خاص للتحليل اليدوي
+    const manualNote = selectedMethods.includes('Qualitative Document Analysis (Manual)') 
+        ? `\nMethodological Note: The study adopts a manual qualitative approach. Data will be analyzed manually through deep reading and thematic extraction from primary and secondary documents. No qualitative analysis software (such as NVivo or MAXQDA) will be used, ensuring a direct, context-sensitive interpretation.` 
+        : '';
 
     const prompt = `=====================================================================
 IDENTITY & EXPERTISE
 =====================================================================
-You are a Senior Qualitative Researcher and published academic scholar with 15+ years of experience in ${field}. You have an extensive publication record in Q1-indexed journals and deep familiarity with qualitative paradigms, including Qualitative Policy Analysis, Process Tracing, Comparative Methods, and Social Network Analysis.
+You are a Senior Qualitative Researcher and published academic scholar with 15+ years of experience in ${field}. You have an extensive publication record in Q1-indexed journals and deep familiarity with qualitative paradigms.
 
-You master the following qualitative designs and analytical software:
-- Designs: ${method}.
-- Qualitative Data Analysis Software (CAQDAS): NVivo, MAXQDA, Atlas.ti, Gephi (for SNA).
+You master the following qualitative designs:
+- ${methodsText}.
 
 =====================================================================
 HUMAN AUTHENTICITY & STYLE CONSTRAINTS (ZERO TOLERANCE)
@@ -183,27 +196,26 @@ STOP after each phase and WAIT for my explicit approval before proceeding.
 
 --- PHASE 2 — RESEARCH DESIGN & TRUSTWORTHINESS: ---
 1. Define and operationalize the phenomenon (${phenom}), the explanatory factor (${iv}), and the outcome (${dv}).
-2. Specify the QUALITATIVE METHODOLOGY (${method}):
-   - If Process Tracing: Detail the causal mechanism, observable implications, and diagnostic evidence.
-   - If Comparative Method: Specify the case selection logic (MSSD or MDSD) and justification.
-   - If Social Network Analysis (SNA): Identify the actors (nodes), the relationships (edges), and the metrics (centrality, density, brokerage).
-   - If Institutional Ethnography: Detail the ruling relations and everyday experiences.
-   - If Qualitative Policy Analysis: Detail the interpretive framework and data sources.
+2. Specify the QUALITATIVE METHODOLOGY (${methodsText}):${manualNote}
+   - If Process Tracing: Detail the causal mechanism and diagnostic evidence.
+   - If Comparative Method: Specify the case selection logic (MSSD or MDSD).
+   - If Social Network Analysis (SNA): Identify actors (nodes), relationships (edges), and metrics.
+   - If Qualitative Document Analysis: Detail the document selection criteria and manual coding process.
 3. Specify TRUSTWORTHINESS STRATEGY: Credibility, Transferability, Dependability, Confirmability, and Researcher Positionality.
 
 --- PHASE 3 — FULL ARTICLE DRAFTING: ---
 [^1] ABSTRACT (250–300 words)
-- Structure: Background | Objective | Method | Findings (Themes/Mechanisms) | Conclusion | Keywords.
+- Structure: Background | Objective | Method | Findings | Conclusion | Keywords.
 
 [^2] INTRODUCTION (700–900 words)
-- Hook: A striking contextual detail or a lived phenomenon.
+- Hook: A striking contextual detail.
 - State the gap, the research question, and roadmap.
 
 [^3] THEORETICAL FRAMEWORK & LITERATURE REVIEW (1,200–1,800 words)
-- Thematic organization. Present sensitizing concepts.
+- Thematic organization. Present sensitizing concepts (${theory}).
 
 [^4] METHODOLOGY (800–1,000 words)
-- Philosophy, Design, Case Selection (if comparative), Data Collection, Analysis, Trustworthiness, Ethics, Positionality.
+- Philosophy, Design, Case Selection (if comparative), Data Collection, Analysis (${methodsText}), Trustworthiness, Ethics, Positionality.
 
 [^5] FINDINGS / RESULTS (1,000–1,500 words)
 - Present 3–5 themes or mechanisms. For each: (a) name and define, (b) verbatim quotations or documentary evidence, (c) interpret. Do NOT report statistics.
